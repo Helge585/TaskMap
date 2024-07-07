@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.databinding.FragmentMainGoalBinding
 
 class MainGoalFragment : Fragment() {
@@ -20,17 +23,25 @@ class MainGoalFragment : Fragment() {
     ): View? {
         _binding = FragmentMainGoalBinding.inflate(inflater, container, false)
         val view = binding.root
-//        val button = view.findViewById<Button>(R.id.main_goal_test_button)
-//        val textEdit = view.findViewById<EditText>(R.id.main_goal_test_edit)
-//        button.setOnClickListener {
-//            val msg = textEdit.text.toString()
-//            val action = MainGoalFragmentDirections.actionMainGoalFragmentToSubGoalFragment(msg)
-//            view.findNavController().navigate(action)
-//        }
+
+        val application = requireNotNull(this.activity).application
+        val dao = GoalDatabase.getInstance(application).mainGoalDao
+        val viewModelFactory = MainGoalViewModelFactory(dao)
+        val viewModel = ViewModelProvider(
+            this, viewModelFactory).get(MainGoalViewModel::class.java)
+
+//        viewModel.navigateToCreating.observe(viewLifecycleOwner, Observer {
+//            if (it) {
+//                this.findNavController()
+//                    .navigate(R.id.action_mainGoalFragment_to_createMainGoalFragment)
+//                viewModel.beforeNavigateToCreating()
+//            }
+//        })
+
         binding.fab.setOnClickListener {
-            activity?.let {
-                NewMainGoalDialogFragment().show(it.supportFragmentManager, "Test dialog")
-            }
+            this.findNavController()
+                    .navigate(R.id.action_mainGoalFragment_to_creating)
+            //viewModel.afterNavigateToCreating()
         }
         return view
     }

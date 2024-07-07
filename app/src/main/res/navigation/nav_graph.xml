@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
+        <action
+            android:id="@+id/action_mainGoalFragment_to_creating"
+            app:destination="@id/createMainGoalFragment" />
     </fragment>
     <fragment
         android:id="@+id/subGoalFragment"
@@ -38,6 +41,14 @@
             android:defaultValue='"None"' />
         <action
             android:id="@+id/action_stepFragment_to_mainGoalFragment"
+            app:destination="@id/mainGoalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createMainGoalFragment"
+        android:name="com.kuznetsov.taskmap.CreateMainGoalFragment"
+        android:label="CreateMainGoalFragment" >
+        <action
+            android:id="@+id/action_createMainGoalFragment_to_mainGoalFragment"
             app:destination="@id/mainGoalFragment" />
     </fragment>
 </navigation>
