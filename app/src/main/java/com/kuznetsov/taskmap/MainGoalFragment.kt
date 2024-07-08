@@ -31,6 +31,14 @@ class MainGoalFragment : Fragment() {
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(MainGoalViewModel::class.java)
 
+        val adapter = MainGoalAdapter()
+        binding.mainGoalsList.adapter = adapter
+
+        viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         viewModel.navigateToCreating.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -40,13 +48,13 @@ class MainGoalFragment : Fragment() {
             }
         })
 
-        viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
-            var sb = StringBuilder("")
-            for (mg in it) {
-                sb.append("id = ${ mg.id }, name = ${ mg.name }\n")
-            }
-            binding.mainGoalFragmentTextView.text = "Main goals:\n" +  sb.toString()
-        })
+//        viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
+//            var sb = StringBuilder("")
+//            for (mg in it) {
+//                sb.append("id = ${ mg.id }, name = ${ mg.name }\n")
+//            }
+//            binding.mainGoalFragmentTextView.text = "Main goals:\n" +  sb.toString()
+//        })
 
         binding.fab.setOnClickListener {
 //            this.findNavController()

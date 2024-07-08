@@ -15,11 +15,14 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/main_goal_fragment_text_view"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_goals_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MainGoals:\n"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
