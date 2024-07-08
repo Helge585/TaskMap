@@ -14,7 +14,7 @@
             android:id="@+id/action_mainGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
         <action
-            android:id="@+id/action_mainGoalFragment_to_creating"
+            android:id="@+id/action_mainGoalFragment_to_createMainGoalFragment"
             app:destination="@id/createMainGoalFragment" />
     </fragment>
     <fragment

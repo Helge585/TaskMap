@@ -26,22 +26,32 @@ class MainGoalFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = GoalDatabase.getInstance(application).mainGoalDao
+
         val viewModelFactory = MainGoalViewModelFactory(dao)
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(MainGoalViewModel::class.java)
 
-//        viewModel.navigateToCreating.observe(viewLifecycleOwner, Observer {
-//            if (it) {
-//                this.findNavController()
-//                    .navigate(R.id.action_mainGoalFragment_to_createMainGoalFragment)
-//                viewModel.beforeNavigateToCreating()
-//            }
-//        })
+
+        viewModel.navigateToCreating.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController()
+                    .navigate(R.id.action_mainGoalFragment_to_createMainGoalFragment)
+                viewModel.beforeNavigateToCreating()
+            }
+        })
+
+        viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
+            var sb = StringBuilder("")
+            for (mg in it) {
+                sb.append("id = ${ mg.id }, name = ${ mg.name }\n")
+            }
+            binding.mainGoalFragmentTextView.text = "Main goals:\n" +  sb.toString()
+        })
 
         binding.fab.setOnClickListener {
-            this.findNavController()
-                    .navigate(R.id.action_mainGoalFragment_to_creating)
-            //viewModel.afterNavigateToCreating()
+//            this.findNavController()
+//                    .navigate(R.id.action_mainGoalFragment_to_creating)
+            viewModel.afterNavigateToCreating()
         }
         return view
     }

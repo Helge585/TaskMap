@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 class MainGoalViewModel(val dao: MainGoalDao): ViewModel() {
 
     private val _navigateToCreating = MutableLiveData<Boolean>()
+    val mainGoals = dao.getAll()
     val navigateToCreating: LiveData<Boolean> get() = _navigateToCreating
 
     init {
