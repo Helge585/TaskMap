@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kuznetsov.taskmap.databinding.MainGoalItemBinding
 
-class MainGoalAdapter()
+class MainGoalAdapter(val editClickListener: (MainGoal) -> Boolean)
     : ListAdapter<MainGoal, MainGoalAdapter.MainGoalItemViewHolder>(MainGoalDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainGoalItemViewHolder {
@@ -15,13 +15,14 @@ class MainGoalAdapter()
 
     override fun onBindViewHolder(holder: MainGoalItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, editClickListener)
     }
 
     class MainGoalItemViewHolder(val binding : MainGoalItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MainGoal) {
+        fun bind(item: MainGoal, editClickListener: (MainGoal) -> Boolean) {
             binding.mainGoal = item
+            binding.mainGoalEditButton.setOnClickListener { editClickListener(item) }
         }
 
         companion object {

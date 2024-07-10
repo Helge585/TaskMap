@@ -31,7 +31,10 @@ class MainGoalFragment : Fragment() {
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(MainGoalViewModel::class.java)
 
-        val adapter = MainGoalAdapter()
+        val adapter = MainGoalAdapter {
+            viewModel.navigateToEditing(it)
+            false
+        }
         binding.mainGoalsList.adapter = adapter
 
         viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
@@ -44,7 +47,16 @@ class MainGoalFragment : Fragment() {
             if (it) {
                 this.findNavController()
                     .navigate(R.id.action_mainGoalFragment_to_createMainGoalFragment)
-                viewModel.beforeNavigateToCreating()
+                viewModel.afterNavigateToCreating()
+            }
+        })
+
+        viewModel.navigateToEditing.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                val action = MainGoalFragmentDirections
+                    .actionMainGoalFragmentToEditMainGoalFragment(viewModel.clickedMainGoal.id)
+                this.findNavController().navigate(action)
+                viewModel.afterNavigateToEditing()
             }
         })
 
@@ -59,8 +71,13 @@ class MainGoalFragment : Fragment() {
         binding.fab.setOnClickListener {
 //            this.findNavController()
 //                    .navigate(R.id.action_mainGoalFragment_to_creating)
-            viewModel.afterNavigateToCreating()
+            viewModel.navigateToCreating()
         }
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
