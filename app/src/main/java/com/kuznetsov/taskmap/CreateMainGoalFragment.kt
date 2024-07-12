@@ -38,6 +38,8 @@ class CreateMainGoalFragment : Fragment() {
             }
         })
 
+        viewModel.printMainGoals()
+
 //        binding.newMainGoalCancel.setOnClickListener {
 //            viewModel.afterNavigateToMainGoal()
 ////            this.findNavController()

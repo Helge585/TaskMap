@@ -1,5 +1,6 @@
 package com.kuznetsov.taskmap
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class CreateMainGoalViewModel(val dao: MainGoalDao): ViewModel() {
+    val mainGoals = dao.getAll()
+
     private val _navigateToMainGoal = MutableLiveData<Boolean>()
     var mainGoalName = ""
     val navigateToMainGoal: LiveData<Boolean> get() = _navigateToMainGoal
@@ -29,6 +32,17 @@ class CreateMainGoalViewModel(val dao: MainGoalDao): ViewModel() {
                 val mainGoal = MainGoal()
                 mainGoal.name = mainGoalName
                 dao.insert(mainGoal)
+            }
+        }
+    }
+
+    fun printMainGoals() {
+        if (mainGoals.value == null) {
+            Log.i("CreateMainGoalViewModel", "NULL NULL NULL NULL NULL")
+        }
+        mainGoals.value?.let {
+            for (m in it) {
+                Log.i("CreateMainGoalViewModel", m.name)
             }
         }
     }

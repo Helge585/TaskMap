@@ -1,6 +1,7 @@
 package com.kuznetsov.taskmap
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class MainGoalFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = GoalDatabase.getInstance(application).mainGoalDao
+        Log.i("MainGoalFragment", "dao is ${dao.toString()}")
 
         val viewModelFactory = MainGoalViewModelFactory(dao)
         val viewModel = ViewModelProvider(

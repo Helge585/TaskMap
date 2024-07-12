@@ -21,6 +21,9 @@ interface MainGoalDao {
     @Query("SELECT * FROM main_goal_table WHERE id = :id")
     fun get(id : Long): LiveData<MainGoal>
 
+    @Query("SELECT * FROM main_goal_table WHERE id = :id")
+    suspend fun getNoLiveData(id : Long): MainGoal
+
     @Query("SELECT * FROM main_goal_table ORDER BY id DESC")
     fun getAll() : LiveData<List<MainGoal>>
 }

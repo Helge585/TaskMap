@@ -6,19 +6,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.kuznetsov.taskmap.databinding.FragmentEditMainGoalBinding
 
 
 class EditMainGoalFragment : Fragment() {
+    private var _binding: FragmentEditMainGoalBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_edit_main_goal, container, false)
+        _binding = FragmentEditMainGoalBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        val text = view.findViewById<TextView>(R.id.edit_main_goal_text_view)
+        val application = requireNotNull(activity).application
+        val dao = GoalDatabase.getInstance(application).mainGoalDao
+
+
         val id = EditMainGoalFragmentArgs.fromBundle(requireArguments()).mainGoalId
-        text.text = id.toString()
+        val viewModelFactory = EditMainGoalViewModelFactory(dao, id)
+        val viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(EditMainGoalViewModel::class.java)
+
+//        var strInfo = "viewModel info is ${viewModel.info()}"
+//        strInfo += ", id = $id"
+//        binding.editMainGoalTextView.text = strInfo
+
+//        binding.editMainGoalUpdate.setOnClickListener {
+//            viewModel.update()
+//        }
+
+        viewModel.mainGoal.observe(viewLifecycleOwner, Observer {
+            binding.editMainGoalTextView.text = "!!! ${ viewModel.info() }"
+        })
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
+        viewModel.printMainGoals()
 
         return view
     }
