@@ -6,11 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.databinding.FragmentMainGoalBinding
 
@@ -33,10 +30,16 @@ class MainGoalFragment : Fragment() {
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(MainGoalViewModel::class.java)
 
-        val adapter = MainGoalAdapter {
-            viewModel.navigateToEditing(it)
-            false
-        }
+        val adapter = MainGoalAdapter (
+            {
+                viewModel.navigateToEditing(it)
+                false
+            },
+            {
+                viewModel.navigateToSubGoals(it)
+                false
+            }
+        )
         binding.mainGoalsList.adapter = adapter
 
         viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
@@ -45,7 +48,7 @@ class MainGoalFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToCreating.observe(viewLifecycleOwner, Observer {
+        viewModel.isNavigatedToCreating.observe(viewLifecycleOwner, Observer {
             if (it) {
                 this.findNavController()
                     .navigate(R.id.action_mainGoalFragment_to_createMainGoalFragment)
@@ -53,7 +56,7 @@ class MainGoalFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToEditing.observe(viewLifecycleOwner, Observer {
+        viewModel.isNavigatedToEditing.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val action = MainGoalFragmentDirections
                     .actionMainGoalFragmentToEditMainGoalFragment(viewModel.clickedMainGoal.id)
@@ -62,6 +65,14 @@ class MainGoalFragment : Fragment() {
             }
         })
 
+        viewModel.isNavigatedToSubGoals.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                val action = MainGoalFragmentDirections
+                    .actionMainGoalFragmentToSubGoalFragment((viewModel.clickedMainGoal.id))
+                findNavController().navigate(action)
+                viewModel.afterNavigateToSubGoals()
+            }
+        })
 //        viewModel.mainGoals.observe(viewLifecycleOwner, Observer {
 //            var sb = StringBuilder("")
 //            for (mg in it) {

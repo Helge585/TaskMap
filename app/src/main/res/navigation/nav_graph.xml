@@ -29,9 +29,9 @@
             android:id="@+id/action_subGoalFragment_to_stepFragment"
             app:destination="@id/stepFragment" />
         <argument
-            android:name="msgFromMainGoal"
-            app:argType="string"
-            android:defaultValue='"None"' />
+            android:name="main_goal_id"
+            app:argType="long"
+            android:defaultValue='0L' />
     </fragment>
     <fragment
         android:id="@+id/stepFragment"

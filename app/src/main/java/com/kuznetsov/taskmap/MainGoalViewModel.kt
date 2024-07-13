@@ -6,36 +6,49 @@ import androidx.lifecycle.ViewModel
 
 class MainGoalViewModel(val dao: MainGoalDao): ViewModel() {
 
-    private val _navigateToCreating = MutableLiveData<Boolean>()
-    val navigateToCreating: LiveData<Boolean> get() = _navigateToCreating
+    private val _isNavigatedToSubGoals = MutableLiveData<Boolean>()
+    val isNavigatedToSubGoals get() = _isNavigatedToSubGoals
 
-    private val _navigateToEditing = MutableLiveData<Boolean>()
-    val navigateToEditing: LiveData<Boolean> get() = _navigateToEditing
+    private val _isNavigatedToCreating = MutableLiveData<Boolean>()
+    val isNavigatedToCreating: LiveData<Boolean> get() = _isNavigatedToCreating
+
+    private val _isNavigatedToEditing = MutableLiveData<Boolean>()
+    val isNavigatedToEditing: LiveData<Boolean> get() = _isNavigatedToEditing
 
     private var _clickedMainGoal: MainGoal? = null
     val clickedMainGoal: MainGoal get() = _clickedMainGoal!!
 
     val mainGoals = dao.getAll()
     init {
-        _navigateToCreating.value = false
-        _navigateToEditing.value = false
+        _isNavigatedToCreating.value = false
+        _isNavigatedToEditing.value = false
+        _isNavigatedToSubGoals.value = false
     }
 
     fun navigateToCreating() {
-        _navigateToCreating.value = true
+        _isNavigatedToCreating.value = true
     }
 
     fun afterNavigateToCreating() {
-        _navigateToCreating.value = false
+        _isNavigatedToCreating.value = false
     }
 
     fun navigateToEditing(mainGoal: MainGoal) {
         _clickedMainGoal = mainGoal
-        _navigateToEditing.value = true
+        _isNavigatedToEditing.value = true
+    }
+
+    fun navigateToSubGoals(mainGoal: MainGoal) {
+        _clickedMainGoal = mainGoal
+        _isNavigatedToSubGoals.value = true
+    }
+
+    fun afterNavigateToSubGoals() {
+        _isNavigatedToSubGoals.value = false
     }
 
     fun afterNavigateToEditing() {
-        _navigateToEditing.value = false
+        _isNavigatedToEditing.value = false
         _clickedMainGoal = null
     }
 }

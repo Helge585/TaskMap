@@ -19,17 +19,11 @@ class SubGoalFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sub_goal, container, false)
 
-        val receivedMsg = SubGoalFragmentArgs.fromBundle(requireArguments()).msgFromMainGoal
+        val receivedMsg = SubGoalFragmentArgs.fromBundle(requireArguments()).mainGoalId
         val textView = view.findViewById<TextView>(R.id.subgoal_test_text)
-        textView.text = textView.text.toString() + receivedMsg
+        textView.text = textView.text.toString() + receivedMsg.toString()
 
-        val button = view.findViewById<Button>(R.id.subgoal_test_button)
-        val textEdit = view.findViewById<EditText>(R.id.subgoal_test_edit)
-        button.setOnClickListener {
-            val msg = textEdit.text.toString()
-            val action = SubGoalFragmentDirections.actionSubGoalFragmentToStepFragment(msg)
-            view.findNavController().navigate(action)
-        }
+
         return view
     }
 }

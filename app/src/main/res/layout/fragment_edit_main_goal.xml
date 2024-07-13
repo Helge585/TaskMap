@@ -45,5 +45,13 @@
             android:text="Delete"
             android:onClick="@{ () -> viewModel.delete() }"/>
 
+        <Button
+            android:id="@+id/edit_main_goal_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Back"
+            android:onClick="@{ () -> viewModel.navigateToMainGoal() }"/>
+
     </LinearLayout>
 </layout>

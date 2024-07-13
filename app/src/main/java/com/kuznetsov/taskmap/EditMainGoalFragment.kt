@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.databinding.FragmentEditMainGoalBinding
 
 
@@ -32,23 +33,28 @@ class EditMainGoalFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(EditMainGoalViewModel::class.java)
 
-//        var strInfo = "viewModel info is ${viewModel.info()}"
-//        strInfo += ", id = $id"
-//        binding.editMainGoalTextView.text = strInfo
-
-//        binding.editMainGoalUpdate.setOnClickListener {
-//            viewModel.update()
-//        }
-
         viewModel.mainGoal.observe(viewLifecycleOwner, Observer {
-            binding.editMainGoalTextView.text = "!!! ${ viewModel.info() }"
+            binding.editMainGoalTextView.text = viewModel.info()
+        })
+
+        viewModel.isNavigateToMainGoal.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it) {
+                    findNavController()
+                        .navigate(R.id.action_editMainGoalFragment_to_mainGoalFragment)
+                    viewModel.afterNavigateToMainGoal()
+                }
+            }
         })
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModel.printMainGoals()
-
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
