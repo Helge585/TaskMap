@@ -1,9 +1,9 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kuznetsov.taskmap.dao.MainGoalDao
 import kotlinx.coroutines.launch
 
 class EditMainGoalViewModel(val dao: MainGoalDao, val mainGoalId: Long): ViewModel() {

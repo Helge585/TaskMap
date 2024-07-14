@@ -1,4 +1,4 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.kuznetsov.taskmap.R
+import com.kuznetsov.taskmap.StepFragmentArgs
 
 class StepFragment : Fragment() {
 

@@ -1,9 +1,12 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.dao
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.kuznetsov.taskmap.entity.MainGoal
+import com.kuznetsov.taskmap.entity.Step
+import com.kuznetsov.taskmap.entity.SubGoal
 
 @Database(entities = [MainGoal::class, SubGoal::class, Step::class], version = 1, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {

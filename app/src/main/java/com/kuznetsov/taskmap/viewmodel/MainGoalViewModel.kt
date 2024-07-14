@@ -1,8 +1,10 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kuznetsov.taskmap.dao.MainGoalDao
+import com.kuznetsov.taskmap.entity.MainGoal
 
 class MainGoalViewModel(val dao: MainGoalDao): ViewModel() {
 

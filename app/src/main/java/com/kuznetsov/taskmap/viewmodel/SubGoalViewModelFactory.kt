@@ -1,7 +1,9 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.kuznetsov.taskmap.dao.MainGoalDao
+import com.kuznetsov.taskmap.dao.SubGoalDao
 
 class SubGoalViewModelFactory(private val mainGoalDao: MainGoalDao,
                               private val subGoalDao: SubGoalDao,

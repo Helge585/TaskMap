@@ -1,4 +1,4 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kuznetsov.taskmap.MainGoalFragmentDirections
+import com.kuznetsov.taskmap.viewmodel.MainGoalViewModel
+import com.kuznetsov.taskmap.viewmodel.MainGoalViewModelFactory
+import com.kuznetsov.taskmap.R
+import com.kuznetsov.taskmap.adapter.MainGoalAdapter
+import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentMainGoalBinding
 
 class MainGoalFragment : Fragment() {
@@ -58,8 +64,10 @@ class MainGoalFragment : Fragment() {
 
         viewModel.isNavigatedToEditing.observe(viewLifecycleOwner, Observer {
             if (it) {
-                val action = MainGoalFragmentDirections
-                    .actionMainGoalFragmentToEditMainGoalFragment(viewModel.clickedMainGoal.id)
+                val action =
+                    MainGoalFragmentDirections.actionMainGoalFragmentToEditMainGoalFragment(
+                        viewModel.clickedMainGoal.id
+                    )
                 this.findNavController().navigate(action)
                 viewModel.afterNavigateToEditing()
             }
@@ -67,8 +75,8 @@ class MainGoalFragment : Fragment() {
 
         viewModel.isNavigatedToSubGoals.observe(viewLifecycleOwner, Observer {
             if (it) {
-                val action = MainGoalFragmentDirections
-                    .actionMainGoalFragmentToSubGoalFragment((viewModel.clickedMainGoal.id))
+                val action =
+                    MainGoalFragmentDirections.actionMainGoalFragmentToSubGoalFragment((viewModel.clickedMainGoal.id))
                 findNavController().navigate(action)
                 viewModel.afterNavigateToSubGoals()
             }

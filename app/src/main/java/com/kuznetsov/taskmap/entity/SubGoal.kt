@@ -1,10 +1,11 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import com.kuznetsov.taskmap.entity.MainGoal
 
 @Entity(
     tableName = "sub_goal_table",

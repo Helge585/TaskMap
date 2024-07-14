@@ -1,4 +1,4 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kuznetsov.taskmap.viewmodel.CreateMainGoalViewModel
+import com.kuznetsov.taskmap.viewmodel.CreateMainGoalViewModelFactory
+import com.kuznetsov.taskmap.dao.GoalDatabase
+import com.kuznetsov.taskmap.R
 import com.kuznetsov.taskmap.databinding.FragmentCreateMainGoalBinding
 
 class CreateMainGoalFragment : Fragment() {

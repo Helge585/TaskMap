@@ -1,11 +1,11 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kuznetsov.taskmap.databinding.MainGoalItemBinding
 import com.kuznetsov.taskmap.databinding.SubGoalItemBinding
+import com.kuznetsov.taskmap.entity.SubGoal
 
 class SubGoalAdapter()
     : ListAdapter<SubGoal, SubGoalAdapter.SubGoalItemViewHolder>(SubGoalDiffItemCallback()) {

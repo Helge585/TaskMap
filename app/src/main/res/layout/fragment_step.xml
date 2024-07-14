@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StepFragment">
+    tools:context=".fragment.StepFragment">
 
     <TextView
         android:id="@+id/step_test_text"

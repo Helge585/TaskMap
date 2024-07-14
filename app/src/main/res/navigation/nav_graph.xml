@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainGoalFragment"
-        android:name="com.kuznetsov.taskmap.MainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.MainGoalFragment"
         android:label="fragment_main_goal"
         tools:layout="@layout/fragment_main_goal" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/subGoalFragment"
-        android:name="com.kuznetsov.taskmap.SubGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.SubGoalFragment"
         android:label="fragment_sub_goal"
         tools:layout="@layout/fragment_sub_goal" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/stepFragment"
-        android:name="com.kuznetsov.taskmap.StepFragment"
+        android:name="com.kuznetsov.taskmap.fragment.StepFragment"
         android:label="fragment_step"
         tools:layout="@layout/fragment_step" >
         <argument
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/createMainGoalFragment"
-        android:name="com.kuznetsov.taskmap.CreateMainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.CreateMainGoalFragment"
         android:label="CreateMainGoalFragment" >
         <action
             android:id="@+id/action_createMainGoalFragment_to_mainGoalFragment"
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/editMainGoalFragment"
-        android:name="com.kuznetsov.taskmap.EditMainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.EditMainGoalFragment"
         android:label="fragment_edit_main_goal"
         tools:layout="@layout/fragment_edit_main_goal" >
         <action

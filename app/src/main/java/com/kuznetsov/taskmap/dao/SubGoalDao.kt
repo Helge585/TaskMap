@@ -1,4 +1,4 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.kuznetsov.taskmap.entity.SubGoal
 
 @Dao
 interface SubGoalDao {

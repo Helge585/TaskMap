@@ -1,7 +1,8 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.kuznetsov.taskmap.dao.MainGoalDao
 
 class CreateMainGoalViewModelFactory(private val dao: MainGoalDao): ViewModelProvider.Factory {
 

@@ -1,10 +1,12 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kuznetsov.taskmap.entity.MainGoal
+import com.kuznetsov.taskmap.dao.MainGoalDao
 import kotlinx.coroutines.launch
 
 class CreateMainGoalViewModel(val dao: MainGoalDao): ViewModel() {

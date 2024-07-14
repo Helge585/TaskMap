@@ -1,4 +1,4 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

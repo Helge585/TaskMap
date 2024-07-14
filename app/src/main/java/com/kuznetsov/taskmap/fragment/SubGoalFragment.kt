@@ -1,16 +1,17 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import com.kuznetsov.taskmap.SubGoalFragmentArgs
+import com.kuznetsov.taskmap.viewmodel.SubGoalViewModel
+import com.kuznetsov.taskmap.viewmodel.SubGoalViewModelFactory
+import com.kuznetsov.taskmap.adapter.SubGoalAdapter
+import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentSubGoalBinding
 
 

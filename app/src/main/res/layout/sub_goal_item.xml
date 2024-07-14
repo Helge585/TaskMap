@@ -6,7 +6,7 @@
     <data>
         <variable
             name="subGoal"
-            type="com.kuznetsov.taskmap.SubGoal" />
+            type="com.kuznetsov.taskmap.entity.SubGoal" />
     </data>
 
     <androidx.cardview.widget.CardView

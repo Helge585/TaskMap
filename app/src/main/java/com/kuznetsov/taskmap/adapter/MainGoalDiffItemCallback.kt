@@ -1,6 +1,7 @@
-package com.kuznetsov.taskmap
+package com.kuznetsov.taskmap.adapter
 
 import androidx.recyclerview.widget.DiffUtil
+import com.kuznetsov.taskmap.entity.MainGoal
 
 class MainGoalDiffItemCallback: DiffUtil.ItemCallback<MainGoal>() {
 
