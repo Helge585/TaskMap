@@ -23,4 +23,7 @@ interface SubGoalDao {
 
     @Query("SELECT * FROM sub_goal_table ORDER BY id DESC")
     fun getAll() : LiveData<List<SubGoal>>
+
+    @Query("SELECT * FROM sub_goal_table WHERE main_goal_id = :mainGoalId ORDER BY id DESC")
+    fun getByMainGoalId(mainGoalId: Long) : LiveData<List<SubGoal>>
 }
