@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.kuznetsov.taskmap.MainGoalFragmentDirections
+import com.kuznetsov.taskmap.fragment.MainGoalFragmentDirections
 import com.kuznetsov.taskmap.viewmodel.MainGoalViewModel
 import com.kuznetsov.taskmap.viewmodel.MainGoalViewModelFactory
 import com.kuznetsov.taskmap.R

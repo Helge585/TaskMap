@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.kuznetsov.taskmap.SubGoalFragmentArgs
+import com.kuznetsov.taskmap.fragment.SubGoalFragmentArgs
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModel
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModelFactory
 import com.kuznetsov.taskmap.adapter.SubGoalAdapter

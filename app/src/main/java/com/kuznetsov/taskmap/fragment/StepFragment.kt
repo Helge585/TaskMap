@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.kuznetsov.taskmap.R
-import com.kuznetsov.taskmap.StepFragmentArgs
+import com.kuznetsov.taskmap.fragment.StepFragmentArgs
 
 class StepFragment : Fragment() {
 
