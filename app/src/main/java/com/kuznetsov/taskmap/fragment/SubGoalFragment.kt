@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.fragment.SubGoalFragmentArgs
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModel
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModelFactory
@@ -33,6 +34,7 @@ class SubGoalFragment : Fragment() {
         val mainGoalId = SubGoalFragmentArgs.fromBundle(requireArguments()).mainGoalId
         val viewModelFactory = SubGoalViewModelFactory(db.mainGoalDao, db.subGoalDao, mainGoalId)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(SubGoalViewModel::class.java)
+        binding.viewModel = viewModel
 
         val adapter = SubGoalAdapter()
         binding.subGoalsList.adapter = adapter
@@ -46,6 +48,17 @@ class SubGoalFragment : Fragment() {
         viewModel.mainGoal.observe(viewLifecycleOwner, Observer {
             binding.subgoalTestText.text = viewModel.mainGoalInfo()
         })
+
+        viewModel.isNavigatedToSubGoalCreating.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                val action = SubGoalFragmentDirections
+                    .actionSubGoalFragmentToCreateSubGoalFragment(mainGoalId)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToSubGoalCreating()
+            }
+        })
+
+
         return view
     }
 

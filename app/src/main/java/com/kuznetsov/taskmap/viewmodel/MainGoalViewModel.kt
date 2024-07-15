@@ -9,7 +9,7 @@ import com.kuznetsov.taskmap.entity.MainGoal
 class MainGoalViewModel(val dao: MainGoalDao): ViewModel() {
 
     private val _isNavigatedToSubGoals = MutableLiveData<Boolean>()
-    val isNavigatedToSubGoals get() = _isNavigatedToSubGoals
+    val isNavigatedToSubGoals: LiveData<Boolean> get() = _isNavigatedToSubGoals
 
     private val _isNavigatedToCreating = MutableLiveData<Boolean>()
     val isNavigatedToCreating: LiveData<Boolean> get() = _isNavigatedToCreating
