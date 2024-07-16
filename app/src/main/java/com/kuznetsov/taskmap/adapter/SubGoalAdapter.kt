@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kuznetsov.taskmap.databinding.SubGoalItemBinding
 import com.kuznetsov.taskmap.entity.SubGoal
 
-class SubGoalAdapter()
+class SubGoalAdapter(val editClickListener: (subGoalId: Long) -> Boolean)
     : ListAdapter<SubGoal, SubGoalAdapter.SubGoalItemViewHolder>(SubGoalDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubGoalItemViewHolder {
@@ -16,13 +16,16 @@ class SubGoalAdapter()
 
     override fun onBindViewHolder(holder: SubGoalItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, editClickListener)
     }
 
-    class SubGoalItemViewHolder(val binding : SubGoalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class SubGoalItemViewHolder(val binding : SubGoalItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SubGoal) {
+        fun bind(item: SubGoal, editClickListener: (subGoalId: Long) -> Boolean) {
             binding.subGoal = item
+            binding.subGoalEditButton.setOnClickListener {
+                editClickListener(item.id)
+            }
         }
 
         companion object {

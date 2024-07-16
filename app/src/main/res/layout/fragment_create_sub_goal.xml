@@ -21,11 +21,12 @@
             android:text="@string/hello_blank_fragment" />
 
         <EditText
-            android:id="@+id/sub_goal_fragment_edit_text_sub_goal_name"
+            android:id="@+id/edit_sub_goal_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:inputType="text"
+            android:text="@={ viewModel.subGoalName }"
             android:hint="Write subgoal name"/>
 
         <LinearLayout
@@ -40,7 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:text="Save"/>
+                android:text="Save"
+                android:onClick="@{ () -> viewModel.addSubGoal() }"/>
 
             <Button
                 android:id="@+id/sub_goal_fragment_back_button"
