@@ -11,11 +11,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
             android:text="@{ viewModel.subGoal.toString() }"/>
+
+        <EditText
+            android:id="@+id/edit_sub_goal_new_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="@={ viewModel.newSubGoalName }"
+            android:hint="Write subgoal name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/edit_sub_goal_update_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.update() }"
+                android:text="Update"/>
+
+            <Button
+                android:id="@+id/edit_sub_goal_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.delete() }"
+                android:text="Delete"/>
+
+            <Button
+                android:id="@+id/edit_sub_goal_back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.navigateToSubGoal() }"
+                android:text="Back"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

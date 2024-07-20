@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.kuznetsov.taskmap.fragment.SubGoalFragmentArgs
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModel
 import com.kuznetsov.taskmap.viewmodel.SubGoalViewModelFactory
 import com.kuznetsov.taskmap.adapter.SubGoalAdapter
@@ -62,9 +61,10 @@ class SubGoalFragment : Fragment() {
         })
 
         viewModel.isNavigatedToSubGoalEditing.observe(viewLifecycleOwner, Observer {
-            if (it && viewModel.clickedSunGoalId != viewModel.NOT_CLICKED) {
+            if (it && viewModel.clickedSubGoalId != viewModel.NOT_CLICKED) {
                 val action = SubGoalFragmentDirections
-                    .actionSubGoalFragmentToEditSubGoalFragment(viewModel.clickedSunGoalId)
+                    .actionSubGoalFragmentToEditSubGoalFragment(
+                        subGoalId = viewModel.clickedSubGoalId)
                 findNavController().navigate(action)
                 viewModel.afterNavigateToSubGoalEditing()
             }

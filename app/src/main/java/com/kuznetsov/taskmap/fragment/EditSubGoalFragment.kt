@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.R
 import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentEditSubGoalBinding
@@ -37,6 +39,17 @@ class EditSubGoalFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        viewModel.isNavigatedToSubGoal.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                viewModel.subGoal.value?.let {
+                    val action = EditSubGoalFragmentDirections
+                        .actionEditSubGoalFragmentToSubGoalFragment(it.mainGoalId)
+                    findNavController().navigate(action)
+                    viewModel.afterNavigateToSubGoal()
+                }
+            }
+        })
 
         return binding.root
     }

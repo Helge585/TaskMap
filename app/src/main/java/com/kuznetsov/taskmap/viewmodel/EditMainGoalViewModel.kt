@@ -46,8 +46,8 @@ class EditMainGoalViewModel(val dao: MainGoalDao, val mainGoalId: Long): ViewMod
         viewModelScope.launch {
             mainGoal.value?.let {
                 dao.delete(it)
-                navigateToMainGoal()
             }
+            navigateToMainGoal()
         }
     }
 }

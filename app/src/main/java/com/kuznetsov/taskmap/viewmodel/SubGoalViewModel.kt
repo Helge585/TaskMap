@@ -23,7 +23,7 @@ class SubGoalViewModel(private val mainGoalDao: MainGoalDao,
     private val _isNavigatedToSubGoalEditing = MutableLiveData<Boolean>()
     val isNavigatedToSubGoalEditing: LiveData<Boolean> get() = _isNavigatedToSubGoalEditing
 
-    var clickedSunGoalId = NOT_CLICKED
+    var clickedSubGoalId = NOT_CLICKED
 
     init {
         _isNavigatedToSubGoalCreating.value = false
@@ -40,12 +40,12 @@ class SubGoalViewModel(private val mainGoalDao: MainGoalDao,
 
     fun navigateToSubGoalEditing(subGoalId: Long) {
         //changing livedatavalue must be last
-        clickedSunGoalId = subGoalId
+        clickedSubGoalId = subGoalId
         _isNavigatedToSubGoalEditing.value = true
     }
 
     fun afterNavigateToSubGoalEditing() {
-        clickedSunGoalId = NOT_CLICKED
+        clickedSubGoalId = NOT_CLICKED
         _isNavigatedToSubGoalEditing.value = false
     }
 
