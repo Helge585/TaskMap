@@ -35,10 +35,16 @@ class SubGoalFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory).get(SubGoalViewModel::class.java)
         binding.viewModel = viewModel
 
-        val adapter = SubGoalAdapter {
-            viewModel.navigateToSubGoalEditing(it)
-            false
-        }
+        val adapter = SubGoalAdapter (
+            {
+                viewModel.navigateToSubGoalEditing(it)
+                false
+            },
+            {
+                viewModel.navigateToStepFragment(it)
+                false
+            }
+        )
         binding.subGoalsList.adapter = adapter
 
         viewModel.subGoals.observe(viewLifecycleOwner, Observer {
@@ -67,6 +73,15 @@ class SubGoalFragment : Fragment() {
                         subGoalId = viewModel.clickedSubGoalId)
                 findNavController().navigate(action)
                 viewModel.afterNavigateToSubGoalEditing()
+            }
+        })
+
+        viewModel.isNavigatedToStepFragment.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                val action = SubGoalFragmentDirections
+                    .actionSubGoalFragmentToStepFragment(viewModel.clickedSubGoalId)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToStepFragment()
             }
         })
 

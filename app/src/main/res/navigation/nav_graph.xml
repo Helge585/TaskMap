@@ -44,13 +44,18 @@
         android:name="com.kuznetsov.taskmap.fragment.StepFragment"
         android:label="fragment_step"
         tools:layout="@layout/fragment_step" >
-        <argument
-            android:name="msgFromSubGoal"
-            app:argType="string"
-            android:defaultValue='"None"' />
         <action
-            android:id="@+id/action_stepFragment_to_mainGoalFragment"
-            app:destination="@id/mainGoalFragment" />
+            android:id="@+id/action_stepFragment_to_subGoalFragment"
+            app:destination="@id/subGoalFragment" />
+        <action
+            android:id="@+id/action_stepFragment_to_subGoalFragment2"
+            app:destination="@id/subGoalFragment" />
+        <argument
+            android:name="sub_goal_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_stepFragment_to_stepCreatingFragment"
+            app:destination="@id/stepCreatingFragment" />
     </fragment>
     <fragment
         android:id="@+id/createMainGoalFragment"
@@ -93,6 +98,18 @@
         <action
             android:id="@+id/action_editSubGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
+        <argument
+            android:name="subGoalId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepCreatingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.StepCreatingFragment"
+        android:label="fragment_step_creating"
+        tools:layout="@layout/fragment_step_creating" >
+        <action
+            android:id="@+id/action_stepCreatingFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
         <argument
             android:name="subGoalId"
             app:argType="long" />

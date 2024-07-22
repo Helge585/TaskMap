@@ -23,11 +23,15 @@ class SubGoalViewModel(private val mainGoalDao: MainGoalDao,
     private val _isNavigatedToSubGoalEditing = MutableLiveData<Boolean>()
     val isNavigatedToSubGoalEditing: LiveData<Boolean> get() = _isNavigatedToSubGoalEditing
 
+    private val _isNavigatedToStepFragment = MutableLiveData<Boolean>()
+    val isNavigatedToStepFragment: LiveData<Boolean> get() = _isNavigatedToStepFragment
+
     var clickedSubGoalId = NOT_CLICKED
 
     init {
         _isNavigatedToSubGoalCreating.value = false
         _isNavigatedToSubGoalEditing.value = false
+        _isNavigatedToStepFragment.value = false
     }
 
     fun navigateToSubGoalCreating() {
@@ -47,6 +51,16 @@ class SubGoalViewModel(private val mainGoalDao: MainGoalDao,
     fun afterNavigateToSubGoalEditing() {
         clickedSubGoalId = NOT_CLICKED
         _isNavigatedToSubGoalEditing.value = false
+    }
+
+    fun navigateToStepFragment(subGoalId: Long) {
+        clickedSubGoalId = subGoalId
+        _isNavigatedToStepFragment.value = true
+    }
+
+    fun afterNavigateToStepFragment() {
+        clickedSubGoalId = NOT_CLICKED
+        _isNavigatedToStepFragment.value = false
     }
 
     fun mainGoalInfo(): String {
