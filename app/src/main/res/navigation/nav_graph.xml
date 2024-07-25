@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.MainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.maingoal.MainGoalsShowingFragment"
         android:label="fragment_main_goal"
-        tools:layout="@layout/fragment_main_goal" >
+        tools:layout="@layout/fragment_main_goal_showing" >
         <action
             android:id="@+id/action_mainGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/subGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.SubGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.subgoal.SubGoalsShowingFragment"
         android:label="fragment_sub_goal"
-        tools:layout="@layout/fragment_sub_goal" >
+        tools:layout="@layout/fragment_sub_goal_showing" >
         <action
             android:id="@+id/action_subGoalFragment_to_stepFragment"
             app:destination="@id/stepFragment" />
@@ -41,9 +41,9 @@
     </fragment>
     <fragment
         android:id="@+id/stepFragment"
-        android:name="com.kuznetsov.taskmap.fragment.StepFragment"
+        android:name="com.kuznetsov.taskmap.fragment.step.StepsShowingFragment"
         android:label="fragment_step"
-        tools:layout="@layout/fragment_step" >
+        tools:layout="@layout/fragment_step_showing" >
         <action
             android:id="@+id/action_stepFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/createMainGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.CreateMainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.maingoal.MainGoalCreatingFragment"
         android:label="CreateMainGoalFragment" >
         <action
             android:id="@+id/action_createMainGoalFragment_to_mainGoalFragment"
@@ -67,9 +67,9 @@
     </fragment>
     <fragment
         android:id="@+id/editMainGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.EditMainGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.maingoal.MainGoalEditingFragment"
         android:label="fragment_edit_main_goal"
-        tools:layout="@layout/fragment_edit_main_goal" >
+        tools:layout="@layout/fragment_main_goal_editing" >
         <action
             android:id="@+id/action_editMainGoalFragment_to_mainGoalFragment"
             app:destination="@id/mainGoalFragment" />
@@ -79,9 +79,9 @@
     </fragment>
     <fragment
         android:id="@+id/createSubGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.CreateSubGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.subgoal.SubGoalCreatingFragment"
         android:label="fragment_create_sub_goal"
-        tools:layout="@layout/fragment_create_sub_goal" >
+        tools:layout="@layout/fragment_sub_goal_creating" >
         <action
             android:id="@+id/action_createSubGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
@@ -92,9 +92,9 @@
     </fragment>
     <fragment
         android:id="@+id/editSubGoalFragment"
-        android:name="com.kuznetsov.taskmap.fragment.EditSubGoalFragment"
+        android:name="com.kuznetsov.taskmap.fragment.subgoal.SubGoalEditingFragment"
         android:label="fragment_edit_sub_goal"
-        tools:layout="@layout/fragment_edit_sub_goal" >
+        tools:layout="@layout/fragment_sub_goal_editing" >
         <action
             android:id="@+id/action_editSubGoalFragment_to_subGoalFragment"
             app:destination="@id/subGoalFragment" />
@@ -104,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/stepCreatingFragment"
-        android:name="com.kuznetsov.taskmap.fragment.StepCreatingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.step.StepCreatingFragment"
         android:label="fragment_step_creating"
         tools:layout="@layout/fragment_step_creating" >
         <action

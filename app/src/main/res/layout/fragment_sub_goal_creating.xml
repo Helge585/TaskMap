@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.subgoal.SubGoalCreatingFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.kuznetsov.taskmap.viewmodel.subgoal.SubGoalCreatingViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            android:text="@string/hello_blank_fragment" />
+
+        <EditText
+            android:id="@+id/edit_sub_goal_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:inputType="text"
+            android:text="@={ viewModel.subGoalName }"
+            android:hint="Write subgoal name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/sub_goal_fragment_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="Save"
+                android:onClick="@{ () -> viewModel.addSubGoal() }"/>
+
+            <Button
+                android:id="@+id/sub_goal_fragment_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="Back"
+                android:onClick="@{ () -> viewModel.navigateToSubGoal() }"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
