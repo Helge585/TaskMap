@@ -24,6 +24,24 @@
             android:hint="Write step name"
             android:text="@={ viewModel.stepName }"/>
 
+        <EditText
+            android:id="@+id/edit_sub_goal_start_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginVertical="15dp"
+            android:hint="Write start result"
+            android:text="@={ viewModel.startResult }"/>
+
+        <EditText
+            android:id="@+id/edit_sub_goal_finish_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginVertical="15dp"
+            android:hint="Write finish result"
+            android:text="@={ viewModel.finishResult }"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.saveStep() }"
                 android:text="Save"/>
 
             <Button

@@ -27,6 +27,9 @@ data class Step(
     @ColumnInfo(name = "step_name")
     var name: String = "",
 
+    @ColumnInfo(name = "start_result")
+    var startResult: Long = 0,
+
     @ColumnInfo(name = "current_result")
     var currentResult: Long = 0,
 

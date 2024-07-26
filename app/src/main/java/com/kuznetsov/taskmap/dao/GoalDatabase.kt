@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kuznetsov.taskmap.entity.MainGoal
 import com.kuznetsov.taskmap.entity.Step
 import com.kuznetsov.taskmap.entity.SubGoal
 
-@Database(entities = [MainGoal::class, SubGoal::class, Step::class], version = 1, exportSchema = false)
+@Database(entities = [MainGoal::class, SubGoal::class, Step::class], version = 2, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {
 
     abstract val mainGoalDao: MainGoalDao
@@ -19,6 +21,12 @@ abstract class GoalDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: GoalDatabase? = null
 
+        private val MIGRATION_1_2 = object: Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE step_table ADD COLUMN start_result INTEGER NOT NULL")
+            }
+        }
+
         fun getInstance(context: Context) : GoalDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -27,7 +35,7 @@ abstract class GoalDatabase : RoomDatabase() {
                         context.applicationContext,
                         GoalDatabase::class.java,
                         "goal_database"
-                    ).build()
+                    ).addMigrations(MIGRATION_1_2).build()
                     INSTANCE = instance
                 }
                 return instance
