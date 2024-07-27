@@ -1,10 +1,13 @@
 package com.kuznetsov.taskmap.viewmodel.step
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.dao.StepDao
 import com.kuznetsov.taskmap.entity.Step
+import kotlinx.coroutines.launch
 
 class StepCreatingViewModel(val stepDao: StepDao, val subGoalId: Long): ViewModel() {
 
@@ -38,19 +41,20 @@ class StepCreatingViewModel(val stepDao: StepDao, val subGoalId: Long): ViewMode
 
     fun saveStep() {
         var stepNameString = stepName.value
-        var startResultLong: Long? = null
-        startResult.value?.let {
-            startResultLong = it.toLongOrNull()
-        }
-        var finishResultLong: Long? = null
-        finishResult.value?.let {
-            finishResultLong = it.toLongOrNull()
-        }
+
+        val startResultLong: Long? = startResult.value?.toLongOrNull()
+
+        val finishResultLong: Long? = finishResult.value?.toLongOrNull()
+
         if (stepNameString != null && stepNameString.length > 0
             && startResultLong != null && finishResultLong != null) {
 
-            //val step = Step(0, subGoalId, stepNameString, startResultLong, finishResultLong)
+            val step = Step(0, subGoalId, stepNameString, startResultLong,
+                startResultLong, finishResultLong)
+            //Log.i("ViewModel save method", "!!!!       $step")
+            viewModelScope.launch {
+                stepDao.insert(step)
+            }
         }
-        //Log.i("ViewModel save method", "!!!!       $startResultInt")
     }
 }

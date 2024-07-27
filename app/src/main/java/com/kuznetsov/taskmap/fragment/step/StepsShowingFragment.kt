@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kuznetsov.taskmap.adapter.StepAdapter
 import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentStepShowingBinding
 import com.kuznetsov.taskmap.viewmodel.step.StepsShowingViewModel
@@ -23,7 +24,7 @@ class StepsShowingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.i("StepFragment", "!!!!!      Step Fragment has been created")
+        //Log.i("StepFragment", "!!!!!      Step Fragment has been created")
         _binding = FragmentStepShowingBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -37,6 +38,12 @@ class StepsShowingFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        val adapter = StepAdapter()
+        binding.stepsList.adapter = adapter
+        viewModel.steps.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         viewModel.isNavigatedToStepCreating.observe(viewLifecycleOwner, Observer {
             if (it) {
