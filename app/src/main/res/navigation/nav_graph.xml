@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_stepFragment_to_stepCreatingFragment"
             app:destination="@id/stepCreatingFragment" />
+        <action
+            android:id="@+id/action_stepFragment_to_stepEditingFragment"
+            app:destination="@id/stepEditingFragment" />
     </fragment>
     <fragment
         android:id="@+id/createMainGoalFragment"
@@ -112,6 +115,18 @@
             app:destination="@id/stepFragment" />
         <argument
             android:name="subGoalId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepEditingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.step.StepEditingFragment"
+        android:label="fragment_step_editing"
+        tools:layout="@layout/fragment_step_editing" >
+        <action
+            android:id="@+id/action_stepEditingFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
+        <argument
+            android:name="stepId"
             app:argType="long" />
     </fragment>
 </navigation>

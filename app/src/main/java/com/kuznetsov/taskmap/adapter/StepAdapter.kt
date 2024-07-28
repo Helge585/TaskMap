@@ -8,7 +8,7 @@ import com.kuznetsov.taskmap.databinding.StepItemBinding
 import com.kuznetsov.taskmap.entity.Step
 
 
-class StepAdapter()
+class StepAdapter(val editClickListener: (stepId: Long) -> Boolean)
     : ListAdapter<Step, StepAdapter.StepItemViewHolder>(StepDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepItemViewHolder {
@@ -17,13 +17,16 @@ class StepAdapter()
 
     override fun onBindViewHolder(holder: StepItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, editClickListener)
     }
 
     class StepItemViewHolder(val binding : StepItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Step) {
+        fun bind(item: Step, editClickListener: (stepId: Long) -> Boolean) {
             binding.step = item
+            binding.stepEditButton.setOnClickListener {
+                editClickListener(item.id)
+            }
         }
 
         companion object {

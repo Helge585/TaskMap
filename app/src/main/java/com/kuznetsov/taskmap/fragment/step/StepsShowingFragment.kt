@@ -39,7 +39,10 @@ class StepsShowingFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = StepAdapter()
+        val adapter = StepAdapter {
+            viewModel.navigateToStepEditing(it)
+            false
+        }
         binding.stepsList.adapter = adapter
         viewModel.steps.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
@@ -51,6 +54,15 @@ class StepsShowingFragment : Fragment() {
                     StepsShowingFragmentDirections.actionStepFragmentToStepCreatingFragment(subGoalId)
                 findNavController().navigate(action)
                 viewModel.afterNavigateToStepCreating()
+            }
+        })
+
+        viewModel.isNavigatedToStepEditing.observe(viewLifecycleOwner, Observer {
+            if (it != viewModel.NOT_CHOOSEN_FOR_EDITING) {
+                val action = StepsShowingFragmentDirections
+                    .actionStepFragmentToStepEditingFragment(it)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToStepEditing()
             }
         })
 
