@@ -35,13 +35,41 @@
                     android:padding="8dp"
                     android:text="@{ step.name }"/>
 
-                <TextView
-                    android:id="@+id/step_description"
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/step_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:padding="8dp"
-                    android:text="@{ step.toString() }"/>
+                    android:value="5"
+                    android:valueFrom="0"
+                    android:valueTo="10"
+                    android:stepSize="1"
+                    app:trackColorActive="@color/green"
+                    app:trackHeight="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:backgroundTint="@color/grey"
+                        android:text="-"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="146% (0 from 12)"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="+"/>
+                </LinearLayout>
             </LinearLayout>
 
             <ImageButton
