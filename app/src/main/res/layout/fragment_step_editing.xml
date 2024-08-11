@@ -28,7 +28,7 @@
             android:inputType="text"
             android:text="@={ viewModel.newName }"
             android:layout_marginBottom="30dp"
-            android:hint="Write step name"/>
+            android:hint="Write new name"/>
 
         <EditText
             android:id="@+id/edit_step_start_result"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="30dp"
             android:inputType="number"
             android:text="@={ viewModel.newStartResult }"
-            android:hint="Write start result"/>
+            android:hint="Write new start result"/>
 
         <EditText
             android:id="@+id/edit_step_current_result"
@@ -46,7 +46,7 @@
             android:layout_marginBottom="30dp"
             android:inputType="number"
             android:text="@={ viewModel.newCurrentResult }"
-            android:hint="Write current result"/>
+            android:hint="Write new current result"/>
 
         <EditText
             android:id="@+id/edit_step_finish_result"
@@ -55,7 +55,7 @@
             android:layout_marginBottom="30dp"
             android:inputType="number"
             android:text="@={ viewModel.newFinishResult }"
-            android:hint="Write finish result"/>
+            android:hint="Write new finish result"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.update() }"
                 android:text="Save changes"/>
 
             <Button
@@ -75,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.cleanFields() }"
                 android:text="Reset"/>
 
 
@@ -91,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.delete() }"
                 android:text="Delete"/>
 
 
@@ -99,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="@{ () -> viewModel.navigateToStepShowingFragment() }"
                 android:text="Back"/>
 
         </LinearLayout>

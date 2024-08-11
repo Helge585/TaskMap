@@ -43,7 +43,10 @@
                     android:valueFrom="0"
                     android:valueTo="10"
                     android:stepSize="1"
-                    app:trackColorActive="@color/green"
+                    android:enabled="false"
+                    app:trackColorActive="@color/lime_green"
+                    app:trackColorInactive="@color/silver"
+                    app:thumbColor="@color/dim_gray"
                     app:trackHeight="15dp" />
 
                 <LinearLayout
@@ -54,21 +57,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:backgroundTint="@color/grey"
-                        android:text="-"/>
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:text="-1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="146% (0 from 12)"/>
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="+"/>
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:text="+1"/>
                 </LinearLayout>
             </LinearLayout>
 
