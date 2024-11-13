@@ -129,4 +129,9 @@
             android:name="stepId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/thisDayFragment"
+        android:name="com.kuznetsov.taskmap.fragment.ThisDayFragment"
+        android:label="fragment_this_day"
+        tools:layout="@layout/fragment_this_day" />
 </navigation>

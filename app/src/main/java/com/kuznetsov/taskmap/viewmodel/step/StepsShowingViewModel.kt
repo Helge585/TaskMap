@@ -3,8 +3,11 @@ package com.kuznetsov.taskmap.viewmodel.step
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.dao.StepDao
 import com.kuznetsov.taskmap.dao.SubGoalDao
+import com.kuznetsov.taskmap.entity.Step
+import kotlinx.coroutines.launch
 
 class StepsShowingViewModel(private val stepDao: StepDao,
                             private val subGoalDao: SubGoalDao,
@@ -39,5 +42,16 @@ class StepsShowingViewModel(private val stepDao: StepDao,
 
     fun afterNavigateToStepEditing() {
         _isNavigatedToStepEditing.value = NOT_CHOOSEN_FOR_EDITING
+    }
+
+    fun getPercentText(currentResult: Long, finishResult: Long): String {
+        return String.format("%.2f", currentResult.toDouble() / finishResult * 100) +
+                "%\n($currentResult from $finishResult)"
+    }
+
+    fun updateStep(step: Step) {
+        viewModelScope.launch {
+            stepDao.update(step)
+        }
     }
 }

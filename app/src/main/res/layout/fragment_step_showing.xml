@@ -9,7 +9,6 @@
             name="viewModel"
             type="com.kuznetsov.taskmap.viewmodel.step.StepsShowingViewModel" />
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,23 +30,26 @@
                 android:text="@{ viewModel.subGoal.toString() }"/>
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/steps_list"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/steps_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/step_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:onClick="@{ () -> viewModel.navigateToStepCreating() }"
-            android:src="@android:drawable/ic_input_add" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/step_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:onClick="@{ () -> viewModel.navigateToStepCreating() }"
+                android:src="@android:drawable/ic_input_add" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
-
 </layout>

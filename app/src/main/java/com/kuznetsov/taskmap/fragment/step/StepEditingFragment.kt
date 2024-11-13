@@ -53,7 +53,7 @@ class StepEditingFragment : Fragment() {
 
 
         viewModel.isMadeToast.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "isMadeToast, it = $it")
+            //Log.d(TAG, "isMadeToast, it = $it")
             if (it) {
                 Toast.makeText(context, viewModel.ERROR_UPDATING, Toast.LENGTH_SHORT).show()
                 viewModel.afterMadeToast()

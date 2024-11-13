@@ -62,7 +62,8 @@ class StepEditingViewModel(val stepDao: StepDao, val stepId: Long): ViewModel() 
         val start = newStartResult.value?.toLongOrNull() ?: -1
         val current = newCurrentResult.value?.toLongOrNull() ?: -1
         val finish = newFinishResult.value?.toLongOrNull() ?: -1
-        if (start < 0 || current < 0 || finish < 0 || name.length == 0) {
+        if (start < 0 || current < 0 || finish < 0 || name.length == 0
+            || start > current || start >= finish || current > finish) {
             _isMadeToast.value = true
         } else {
             step.value?.let {

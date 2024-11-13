@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.adapter.StepAdapter
 import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentStepShowingBinding
+import com.kuznetsov.taskmap.entity.Step
 import com.kuznetsov.taskmap.viewmodel.step.StepsShowingViewModel
 import com.kuznetsov.taskmap.viewmodel.step.StepsShowingViewModelFactory
 
@@ -39,10 +40,18 @@ class StepsShowingFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = StepAdapter {
-            viewModel.navigateToStepEditing(it)
-            false
-        }
+        val adapter = StepAdapter (
+            {
+                viewModel.navigateToStepEditing(it)
+                false
+            },
+            {current: Long, finish: Long ->
+                viewModel.getPercentText(current, finish)
+            },
+            {step: Step ->
+                viewModel.updateStep(step)
+            }
+        )
         binding.stepsList.adapter = adapter
         viewModel.steps.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
