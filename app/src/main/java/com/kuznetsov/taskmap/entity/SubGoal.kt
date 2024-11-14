@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
 import com.kuznetsov.taskmap.entity.MainGoal
+import com.kuznetsov.taskmap.utils.MyDateUtils
 
 @Entity(
     tableName = "sub_goal_table",
@@ -31,4 +32,6 @@ data class SubGoal(
 
     @ColumnInfo(name = "creating_date", defaultValue = "0")
     var creatingDate : Long = 0
-)
+) {
+    val creatingDateInString: String get() = MyDateUtils.millisToFormatDate(creatingDate)
+}

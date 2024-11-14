@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:padding="8dp"
-                    android:text="@{mainGoal.toString()}"/>
+                    android:text='@{"Created: " + mainGoal.creatingDateInString }'/>
             </LinearLayout>
 
             <ImageButton

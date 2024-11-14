@@ -75,6 +75,10 @@ class StepsShowingFragment : Fragment() {
             }
         })
 
+        viewModel.subGoal.observe(viewLifecycleOwner, Observer {
+            binding.subgoalTestText.text = viewModel.subGoalInfo()
+        })
+
         return view
     }
 

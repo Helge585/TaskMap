@@ -54,4 +54,8 @@ class StepsShowingViewModel(private val stepDao: StepDao,
             stepDao.update(step)
         }
     }
+
+    fun subGoalInfo(): String {
+        return subGoal.value?.name.toString()
+    }
 }

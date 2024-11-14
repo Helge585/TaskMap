@@ -26,8 +26,12 @@
                 android:id="@+id/subgoal_test_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:text="@{ viewModel.subGoal.toString() }"/>
+                android:layout_margin="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="Text from Sub Goal page"/>
         </androidx.cardview.widget.CardView>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

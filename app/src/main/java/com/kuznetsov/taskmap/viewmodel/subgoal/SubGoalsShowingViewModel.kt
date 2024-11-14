@@ -64,7 +64,7 @@ class SubGoalsShowingViewModel(private val mainGoalDao: MainGoalDao,
     }
 
     fun mainGoalInfo(): String {
-        return mainGoal.value.toString()
+        return mainGoal.value?.name.toString()
     }
     fun printSubGoals() {
         subGoals.value?.forEach {

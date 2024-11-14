@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.entity.MainGoal
 import com.kuznetsov.taskmap.dao.MainGoalDao
+import com.kuznetsov.taskmap.utils.MyDateUtils
 import kotlinx.coroutines.launch
 
 class MainGoalCreatingViewModel(val dao: MainGoalDao): ViewModel() {
@@ -33,6 +34,7 @@ class MainGoalCreatingViewModel(val dao: MainGoalDao): ViewModel() {
             viewModelScope.launch {
                 val mainGoal = MainGoal()
                 mainGoal.name = mainGoalName
+                mainGoal.creatingDate = MyDateUtils.getCurrentDateInMillis()
                 dao.insert(mainGoal)
             }
         }

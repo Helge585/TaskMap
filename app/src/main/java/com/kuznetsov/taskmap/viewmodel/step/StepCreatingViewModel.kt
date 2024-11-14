@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.dao.StepDao
 import com.kuznetsov.taskmap.entity.Step
+import com.kuznetsov.taskmap.utils.MyDateUtils
 import kotlinx.coroutines.launch
 
 class StepCreatingViewModel(val stepDao: StepDao, val subGoalId: Long): ViewModel() {
@@ -50,7 +51,7 @@ class StepCreatingViewModel(val stepDao: StepDao, val subGoalId: Long): ViewMode
             && startResultLong != null && finishResultLong != null) {
 
             val step = Step(0, subGoalId, stepNameString, startResultLong,
-                startResultLong, finishResultLong)
+                startResultLong, finishResultLong, MyDateUtils.getCurrentDateInMillis())
             //Log.i("ViewModel save method", "!!!!       $step")
             viewModelScope.launch {
                 stepDao.insert(step)

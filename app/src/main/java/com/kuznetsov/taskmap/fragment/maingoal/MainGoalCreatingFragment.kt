@@ -16,6 +16,7 @@ import com.kuznetsov.taskmap.databinding.FragmentMainGoalCreatingBinding
 
 class MainGoalCreatingFragment : Fragment() {
     private var _binding: FragmentMainGoalCreatingBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(

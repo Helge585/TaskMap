@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.kuznetsov.taskmap.utils.MyDateUtils
 
 @Entity(
     tableName = "step_table",
@@ -38,4 +39,6 @@ data class Step(
 
     @ColumnInfo(name = "creating_date", defaultValue = "0")
     var creatingDate : Long = 0
-)
+) {
+    val creatingDateInString: String get() = MyDateUtils.millisToFormatDate(creatingDate)
+}

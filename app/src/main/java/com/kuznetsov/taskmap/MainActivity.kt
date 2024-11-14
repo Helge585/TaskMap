@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val dateInMillis = System.currentTimeMillis();
-        val date = Date(dateInMillis)
-        val sdf = SimpleDateFormat("dd.MM.yyyy")
-        val dateInStr = sdf.format(date)
-        Log.i(TAG, "dateInMillis = $dateInMillis")
-        Log.i(TAG, "date = $date")
-        Log.i(TAG, "dateInStr = $dateInStr")
-        val zeroDate = Date(0)
-        Log.i(TAG, "zeroDate = $zeroDate")
+//        val dateInMillis = System.currentTimeMillis();
+//        val date = Date(dateInMillis)
+//        val sdf = SimpleDateFormat("dd.MM.yyyy")
+//        val dateInStr = sdf.format(date)
+//        Log.i(TAG, "dateInMillis = $dateInMillis")
+//        Log.i(TAG, "date = $date")
+//        Log.i(TAG, "dateInStr = $dateInStr")
+//        val zeroDate = Date(0)
+//        Log.i(TAG, "zeroDate = $zeroDate")
 
 
         val navHostFragment = supportFragmentManager
