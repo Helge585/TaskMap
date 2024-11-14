@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.kuznetsov.taskmap.entity.Increment
 import com.kuznetsov.taskmap.entity.MainGoal
 import com.kuznetsov.taskmap.entity.Step
 import com.kuznetsov.taskmap.entity.SubGoal
 
-@Database(entities = [MainGoal::class, SubGoal::class, Step::class], version = 2, exportSchema = false)
+@Database(entities = [MainGoal::class, SubGoal::class, Step::class, Increment::class],
+    version = 3, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {
 
     abstract val mainGoalDao: MainGoalDao
@@ -27,6 +29,20 @@ abstract class GoalDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_2_3 = object: Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS increment_table (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        "step_id INTEGER NOT NULL," +
+                        "increment_value INTEGER DEFAULT 0 NOT NULL," +
+                        "creating_date INTEGER DEFAULT 0 NOT NULL," +
+                        "FOREIGN KEY (step_id)  REFERENCES step_table (id) ON DELETE CASCADE)")
+                database.execSQL("ALTER TABLE main_goal_table ADD COLUMN creating_date  INTEGER DEFAULT 0 NOT NULL")
+                database.execSQL("ALTER TABLE sub_goal_table ADD COLUMN creating_date INTEGER DEFAULT 0 NOT NULL")
+                database.execSQL("ALTER TABLE step_table ADD COLUMN creating_date INTEGER DEFAULT 0 NOT NULL")
+            }
+        }
+
         fun getInstance(context: Context) : GoalDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -35,7 +51,7 @@ abstract class GoalDatabase : RoomDatabase() {
                         context.applicationContext,
                         GoalDatabase::class.java,
                         "goal_database"
-                    ).addMigrations(MIGRATION_1_2).build()
+                    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
                     INSTANCE = instance
                 }
                 return instance

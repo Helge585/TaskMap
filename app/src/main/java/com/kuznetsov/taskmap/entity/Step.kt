@@ -34,5 +34,8 @@ data class Step(
     var currentResult: Long = 0,
 
     @ColumnInfo(name = "finish_result")
-    var finishResult: Long = 0
+    var finishResult: Long = 0,
+
+    @ColumnInfo(name = "creating_date", defaultValue = "0")
+    var creatingDate : Long = 0
 )

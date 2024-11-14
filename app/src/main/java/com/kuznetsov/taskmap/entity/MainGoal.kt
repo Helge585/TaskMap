@@ -12,5 +12,8 @@ data class MainGoal(
     var id: Long = 0,
 
     @ColumnInfo(name = "goal_name")
-    var name: String = ""
+    var name: String = "",
+
+    @ColumnInfo(name = "creating_date", defaultValue = "0")
+    var creatingDate : Long = 0
 )

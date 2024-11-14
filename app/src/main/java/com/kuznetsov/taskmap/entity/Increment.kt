@@ -3,31 +3,29 @@ package com.kuznetsov.taskmap.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
-import com.kuznetsov.taskmap.entity.MainGoal
 
 @Entity(
-    tableName = "sub_goal_table",
+    tableName = "increment_table",
     foreignKeys = [
         ForeignKey(
-            entity = MainGoal::class,
+            entity = Step::class,
             parentColumns = ["id"],
-            childColumns = ["main_goal_id"],
-            onDelete = CASCADE
+            childColumns = ["step_id"],
+            onDelete = ForeignKey.CASCADE
         )
-    ]
-)
-data class SubGoal(
+    ])
+
+data class Increment(
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
 
-    @ColumnInfo(name = "main_goal_id")
-    var mainGoalId: Long = 0,
+    @ColumnInfo(name = "step_id")
+    var stepId : Long = 0,
 
-    @ColumnInfo(name = "goal_name")
-    var name: String = "",
+    @ColumnInfo(name = "increment_value", defaultValue = "0")
+    var incrementValue: Long = 0,
 
     @ColumnInfo(name = "creating_date", defaultValue = "0")
     var creatingDate : Long = 0
