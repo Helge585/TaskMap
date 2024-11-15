@@ -11,7 +11,8 @@ import com.kuznetsov.taskmap.entity.Step
 
 class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
                   val getPercentText: (current: Long, finish: Long) -> String,
-                  val updateStep: (step: Step) -> Unit)
+                  val updateStep: (step: Step, newCurrentResult: Long) -> Unit,
+                  val showIncrementsButtonClickListener: (stepId: Long) -> Boolean)
     : ListAdapter<Step, StepAdapter.StepItemViewHolder>(StepDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepItemViewHolder {
@@ -20,14 +21,16 @@ class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
 
     override fun onBindViewHolder(holder: StepItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, editClickListener, getPercentText, updateStep)
+        holder.bind(item, editClickListener, getPercentText,
+            updateStep, showIncrementsButtonClickListener)
     }
 
     class StepItemViewHolder(val binding : StepItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Step, editClickListener: (stepId: Long) -> Boolean,
                  getPercentText: (current: Long, finish: Long) -> String,
-                 updateStep: (step: Step) -> Unit) {
+                 updateStep: (step: Step, newCurrentResult: Long) -> Unit,
+                 showIncrementsButtonClickListener: (stepId: Long) -> Boolean) {
 
             binding.step = item
             binding.stepEditButton.setOnClickListener {
@@ -58,10 +61,13 @@ class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
             }
             binding.saveButton.setOnClickListener {
                 if (it.isVisible) {
-                    item.currentResult = binding.stepSlider.value.toLong()
-                    updateStep(item)
+                    //item.currentResult = binding.stepSlider.value.toLong()
+                    updateStep(item, binding.stepSlider.value.toLong())
                     it.isVisible = false
                 }
+            }
+            binding.incrementsShowButton.setOnClickListener {
+                showIncrementsButtonClickListener(item.id)
             }
         }
 

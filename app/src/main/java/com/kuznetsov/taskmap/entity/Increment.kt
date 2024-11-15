@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.kuznetsov.taskmap.utils.MyDateUtils
 
 @Entity(
     tableName = "increment_table",
@@ -29,4 +30,9 @@ data class Increment(
 
     @ColumnInfo(name = "creating_date", defaultValue = "0")
     var creatingDate : Long = 0
-)
+) {
+    fun getDescription(): String {
+        return "Increment value: $incrementValue\n" +
+                "Created: ${ MyDateUtils.millisToFormatDateWithTime(creatingDate) }."
+    }
+}

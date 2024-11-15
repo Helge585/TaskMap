@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_stepFragment_to_stepEditingFragment"
             app:destination="@id/stepEditingFragment" />
+        <action
+            android:id="@+id/action_stepFragment_to_incrementsShowingFragment"
+            app:destination="@id/incrementsShowingFragment" />
     </fragment>
     <fragment
         android:id="@+id/createMainGoalFragment"
@@ -134,4 +137,17 @@
         android:name="com.kuznetsov.taskmap.fragment.ThisDayFragment"
         android:label="fragment_this_day"
         tools:layout="@layout/fragment_this_day" />
+    <fragment
+        android:id="@+id/incrementsShowingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.step.IncrementsShowingFragment"
+        android:label="fragment_increments_showing"
+        tools:layout="@layout/fragment_increments_showing" >
+        <action
+            android:id="@+id/action_incrementsShowingFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
+        <argument
+            android:name="step_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>

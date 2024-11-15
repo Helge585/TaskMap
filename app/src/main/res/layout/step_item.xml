@@ -121,9 +121,9 @@
                     android:text='@{ "Created: " + step.creatingDateInString }'/>
 
                 <Button
+                    android:id="@+id/increments_show_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="History"/>
             </LinearLayout>
         </LinearLayout>

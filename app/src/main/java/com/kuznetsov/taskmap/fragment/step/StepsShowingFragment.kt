@@ -1,7 +1,6 @@
 package com.kuznetsov.taskmap.fragment.step
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,8 +47,12 @@ class StepsShowingFragment : Fragment() {
             {current: Long, finish: Long ->
                 viewModel.getPercentText(current, finish)
             },
-            {step: Step ->
-                viewModel.updateStep(step)
+            {step: Step, newCurrentResult: Long ->
+                viewModel.updateStep(step, newCurrentResult)
+            },
+            {stepId: Long ->
+                viewModel.navigateToIncrementsShowing(stepId)
+                false
             }
         )
         binding.stepsList.adapter = adapter
@@ -67,11 +70,20 @@ class StepsShowingFragment : Fragment() {
         })
 
         viewModel.isNavigatedToStepEditing.observe(viewLifecycleOwner, Observer {
-            if (it != viewModel.NOT_CHOOSEN_FOR_EDITING) {
+            if (it != viewModel.NOT_CHOOSEN_FOR_NAVIGATING) {
                 val action = StepsShowingFragmentDirections
                     .actionStepFragmentToStepEditingFragment(it)
                 findNavController().navigate(action)
                 viewModel.afterNavigateToStepEditing()
+            }
+        })
+
+        viewModel.isNavigatedToIncrementsShowing.observe(viewLifecycleOwner, Observer {
+            if (it != viewModel.NOT_CHOOSEN_FOR_NAVIGATING) {
+                val action = StepsShowingFragmentDirections
+                    .actionStepFragmentToIncrementsShowingFragment(it)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToIncrementsShowing()
             }
         })
 
