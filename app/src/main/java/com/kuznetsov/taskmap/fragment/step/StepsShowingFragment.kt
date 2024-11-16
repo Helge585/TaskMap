@@ -33,7 +33,8 @@ class StepsShowingFragment : Fragment() {
         val application = requireNotNull(activity).application
         val db = GoalDatabase.getInstance(application)
 
-        val viewModelFactory = StepsShowingViewModelFactory(db.stepDao, db.subGoalDao, subGoalId)
+        val viewModelFactory = StepsShowingViewModelFactory(db.stepDao, db.subGoalDao,
+            db.thisDayTaskDao, subGoalId)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(StepsShowingViewModel::class.java)
 
         binding.viewModel = viewModel
@@ -53,6 +54,9 @@ class StepsShowingFragment : Fragment() {
             {stepId: Long ->
                 viewModel.navigateToIncrementsShowing(stepId)
                 false
+            },
+            {
+                viewModel.addToThisDay(it)
             }
         )
         binding.stepsList.adapter = adapter

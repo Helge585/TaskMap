@@ -140,6 +140,9 @@
         <action
             android:id="@+id/action_thisDayFragment_to_thisDayTaskCreatingFragment"
             app:destination="@id/thisDayTaskCreatingFragment" />
+        <action
+            android:id="@+id/action_thisDayFragment_to_oneStepShowingFragment"
+            app:destination="@id/oneStepShowingFragment" />
     </fragment>
     <fragment
         android:id="@+id/incrementsShowingFragment"
@@ -161,6 +164,19 @@
         tools:layout="@layout/fragment_this_day_task_creating" >
         <action
             android:id="@+id/action_thisDayTaskCreatingFragment_to_thisDayFragment"
+            app:destination="@id/thisDayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneStepShowingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.step.OneStepShowingFragment"
+        android:label="fragment_one_step_showing"
+        tools:layout="@layout/fragment_one_step_showing" >
+        <argument
+            android:name="step_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_oneStepShowingFragment_to_thisDayFragment"
             app:destination="@id/thisDayFragment" />
     </fragment>
 </navigation>

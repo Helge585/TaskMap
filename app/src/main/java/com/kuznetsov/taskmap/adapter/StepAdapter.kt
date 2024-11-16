@@ -12,7 +12,8 @@ import com.kuznetsov.taskmap.entity.Step
 class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
                   val getPercentText: (current: Long, finish: Long) -> String,
                   val updateStep: (step: Step, newCurrentResult: Long) -> Unit,
-                  val showIncrementsButtonClickListener: (stepId: Long) -> Boolean)
+                  val showIncrementsButtonClickListener: (stepId: Long) -> Boolean,
+                  val addToThisDayClickListener: (Step) -> Unit)
     : ListAdapter<Step, StepAdapter.StepItemViewHolder>(StepDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepItemViewHolder {
@@ -22,7 +23,8 @@ class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
     override fun onBindViewHolder(holder: StepItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, editClickListener, getPercentText,
-            updateStep, showIncrementsButtonClickListener)
+            updateStep, showIncrementsButtonClickListener,
+            addToThisDayClickListener)
     }
 
     class StepItemViewHolder(val binding : StepItemBinding): RecyclerView.ViewHolder(binding.root) {
@@ -30,7 +32,8 @@ class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
         fun bind(item: Step, editClickListener: (stepId: Long) -> Boolean,
                  getPercentText: (current: Long, finish: Long) -> String,
                  updateStep: (step: Step, newCurrentResult: Long) -> Unit,
-                 showIncrementsButtonClickListener: (stepId: Long) -> Boolean) {
+                 showIncrementsButtonClickListener: (stepId: Long) -> Boolean,
+                 addToThisDayClickListener: (Step) -> Unit) {
 
             binding.step = item
             binding.stepEditButton.setOnClickListener {
@@ -68,6 +71,9 @@ class StepAdapter(val editClickListener: (stepId: Long) -> Boolean,
             }
             binding.incrementsShowButton.setOnClickListener {
                 showIncrementsButtonClickListener(item.id)
+            }
+            binding.addThisDay.setOnClickListener {
+                addToThisDayClickListener(item)
             }
         }
 

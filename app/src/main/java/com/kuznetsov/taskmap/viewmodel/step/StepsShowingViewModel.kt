@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.dao.StepDao
 import com.kuznetsov.taskmap.dao.SubGoalDao
+import com.kuznetsov.taskmap.dao.ThisDayTaskDao
 import com.kuznetsov.taskmap.entity.Increment
 import com.kuznetsov.taskmap.entity.Step
+import com.kuznetsov.taskmap.entity.ThisDayTask
 import com.kuznetsov.taskmap.utils.MyDateUtils
 import kotlinx.coroutines.launch
 
@@ -16,6 +18,7 @@ const val TAG = "StepsShowingViewModel"
 
 class StepsShowingViewModel(private val stepDao: StepDao,
                             private val subGoalDao: SubGoalDao,
+                            private val thisDayTaskDao: ThisDayTaskDao,
                             private val subGoalId: Long): ViewModel() {
     val NOT_CHOOSEN_FOR_NAVIGATING = -1L
 
@@ -83,5 +86,20 @@ class StepsShowingViewModel(private val stepDao: StepDao,
 
     fun subGoalInfo(): String {
         return subGoal.value?.name.toString()
+    }
+
+    fun addToThisDay(step: Step) {
+        val name = subGoal.value?.name.toString() + " - " + step.name
+        val thisDayTask = ThisDayTask(
+            id = 0,
+            name = name,
+            description = "",
+            stepId = step.id,
+            status = 0,
+            creatingDate = MyDateUtils.getCurrentDateInMillis()
+        )
+        viewModelScope.launch {
+            thisDayTaskDao.insert(thisDayTask)
+        }
     }
 }

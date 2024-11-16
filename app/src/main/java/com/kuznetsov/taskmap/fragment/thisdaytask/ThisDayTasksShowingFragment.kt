@@ -46,7 +46,17 @@ class ThisDayTasksShowingFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = ThisDayTaskAdapter()
+        val adapter = ThisDayTaskAdapter(
+            {
+                viewModel.deleteThisDayTask(it)
+            },
+            {
+                viewModel.navigateToStepShowing(it)
+            },
+            {
+                viewModel.updateThisDayTask(it)
+            }
+        )
 
         binding.thisDayTasksList.adapter = adapter
         viewModel.thisDayTasks.observe(viewLifecycleOwner, Observer {
@@ -63,6 +73,15 @@ class ThisDayTasksShowingFragment : Fragment() {
                     .actionThisDayFragmentToThisDayTaskCreatingFragment()
                 findNavController().navigate(action)
                 viewModel.afterNavigateToThisDayTaskCreating()
+            }
+        })
+
+        viewModel.isNavigatedToStepShowing.observe(viewLifecycleOwner, Observer {
+            if (it != viewModel.NOT_CHOOSEN_FOR_NAVIGATING) {
+                val action = ThisDayTasksShowingFragmentDirections
+                    .actionThisDayFragmentToOneStepShowingFragment(it)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToStepShowing()
             }
         })
 

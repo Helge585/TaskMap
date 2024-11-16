@@ -35,11 +35,4 @@ class ThisDayTaskCreatingViewModel(val dao: ThisDayTaskDao): ViewModel() {
         }
     }
 
-    fun showTasks() {
-        val tasks = dao.getAll().value
-        tasks?.let {
-            Log.i(TAG, "tasks = $it")
-        }
-
-    }
 }

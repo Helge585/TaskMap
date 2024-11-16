@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kuznetsov.taskmap.R
 import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentThisDayTaskCreatingBinding
@@ -34,11 +35,12 @@ class ThisDayTaskCreatingFragment : Fragment() {
 
         binding.thisDayTaskSaveButton.setOnClickListener {
             viewModel.saveThisDayTask()
+            val action = ThisDayTaskCreatingFragmentDirections
+                .actionThisDayTaskCreatingFragmentToThisDayFragment()
+            findNavController().navigate(action)
         }
 
-        binding.thisDayTaskShowButton.setOnClickListener {
-            viewModel.showTasks()
-        }
+
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
