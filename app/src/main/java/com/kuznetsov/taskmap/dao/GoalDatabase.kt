@@ -11,9 +11,11 @@ import com.kuznetsov.taskmap.entity.MainGoal
 import com.kuznetsov.taskmap.entity.Step
 import com.kuznetsov.taskmap.entity.SubGoal
 import com.kuznetsov.taskmap.entity.ThisDayTask
+import com.kuznetsov.taskmap.entity.ThisDayTask_UnusedClass_MustBeDeleted
 
-@Database(entities = [MainGoal::class, SubGoal::class, Step::class, Increment::class, ThisDayTask::class],
-    version = 4, exportSchema = false)
+@Database(entities = [MainGoal::class, SubGoal::class, Step::class, Increment::class,
+    ThisDayTask::class, ThisDayTask_UnusedClass_MustBeDeleted::class],
+    version = 5, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {
 
     abstract val mainGoalDao: MainGoalDao
@@ -58,6 +60,18 @@ abstract class GoalDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_4_5 = object: Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS this_day_task_table_2 (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        "this_day_task_name TEXT DEFAULT '-' NOT NULL," +
+                        "description TEXT DEFAULT '-' NOT NULL," +
+                        "step_id INTEGER NOT NULL," +
+                        "status INTEGER DEFAULT 0 NOT NULL," +
+                        "creating_date INTEGER DEFAULT 0 NOT NULL)")
+            }
+        }
+
         fun getInstance(context: Context) : GoalDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -66,7 +80,8 @@ abstract class GoalDatabase : RoomDatabase() {
                         context.applicationContext,
                         GoalDatabase::class.java,
                         "goal_database"
-                    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build()
+                    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,
+                        MIGRATION_4_5).build()
                     INSTANCE = instance
                 }
                 return instance

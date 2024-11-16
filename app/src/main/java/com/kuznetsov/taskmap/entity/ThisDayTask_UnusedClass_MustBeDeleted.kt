@@ -5,8 +5,17 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "this_day_task_table_2")
-data class ThisDayTask(
+@Entity(
+    tableName = "this_day_task_table",
+    foreignKeys = [
+        ForeignKey(
+            entity = Step::class,
+            parentColumns = ["id"],
+            childColumns = ["step_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ])
+data class ThisDayTask_UnusedClass_MustBeDeleted(
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,

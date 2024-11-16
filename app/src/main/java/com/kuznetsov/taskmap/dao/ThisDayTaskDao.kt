@@ -20,10 +20,10 @@ interface ThisDayTaskDao {
     @Delete
     suspend fun delete(thisDayTask: ThisDayTask)
 
-    @Query("SELECT * FROM this_day_task_table WHERE id = :id")
+    @Query("SELECT * FROM this_day_task_table_2 WHERE id = :id")
     fun get(id : Long): LiveData<ThisDayTask>
 
-    @Query("SELECT * FROM this_day_task_table ORDER BY id DESC")
+    @Query("SELECT * FROM this_day_task_table_2 ORDER BY id DESC")
     fun getAll() : LiveData<List<ThisDayTask>>
 
 }

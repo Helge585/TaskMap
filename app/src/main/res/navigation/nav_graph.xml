@@ -134,9 +134,13 @@
     </fragment>
     <fragment
         android:id="@+id/thisDayFragment"
-        android:name="com.kuznetsov.taskmap.fragment.ThisDayFragment"
+        android:name="com.kuznetsov.taskmap.fragment.thisdaytask.ThisDayTasksShowingFragment"
         android:label="fragment_this_day"
-        tools:layout="@layout/fragment_this_day" />
+        tools:layout="@layout/fragment_this_day_tasks_showing" >
+        <action
+            android:id="@+id/action_thisDayFragment_to_thisDayTaskCreatingFragment"
+            app:destination="@id/thisDayTaskCreatingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/incrementsShowingFragment"
         android:name="com.kuznetsov.taskmap.fragment.step.IncrementsShowingFragment"
@@ -149,5 +153,14 @@
             android:name="step_id"
             app:argType="long"
             android:defaultValue="-1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/thisDayTaskCreatingFragment"
+        android:name="com.kuznetsov.taskmap.fragment.thisdaytask.ThisDayTaskCreatingFragment"
+        android:label="fragment_this_day_task_creating"
+        tools:layout="@layout/fragment_this_day_task_creating" >
+        <action
+            android:id="@+id/action_thisDayTaskCreatingFragment_to_thisDayFragment"
+            app:destination="@id/thisDayFragment" />
     </fragment>
 </navigation>
