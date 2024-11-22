@@ -55,6 +55,9 @@ class ThisDayTasksShowingFragment : Fragment() {
             },
             {
                 viewModel.updateThisDayTask(it)
+            },
+            {
+                viewModel.navigateToDetailsShowing(it)
             }
         )
 
@@ -82,6 +85,15 @@ class ThisDayTasksShowingFragment : Fragment() {
                     .actionThisDayFragmentToOneStepShowingFragment(it)
                 findNavController().navigate(action)
                 viewModel.afterNavigateToStepShowing()
+            }
+        })
+
+        viewModel.isNavigatedToDetailsShowing.observe(viewLifecycleOwner, Observer {
+            if (it != viewModel.NOT_CHOOSEN_FOR_NAVIGATING) {
+                val action = ThisDayTasksShowingFragmentDirections
+                    .actionThisDayFragmentToThisDayTaskDetailsShowingFragment(it)
+                findNavController().navigate(action)
+                viewModel.afterNavigateToDetailsShowing()
             }
         })
 

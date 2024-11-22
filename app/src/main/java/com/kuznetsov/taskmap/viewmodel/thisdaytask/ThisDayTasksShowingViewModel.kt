@@ -10,7 +10,7 @@ import com.kuznetsov.taskmap.entity.ThisDayTask
 import kotlinx.coroutines.launch
 import java.math.BigInteger
 
-
+const val TAGG = "ThisDayTasksShowingViewModel"
 class ThisDayTasksShowingViewModel(val thisDayTaskDao: ThisDayTaskDao): ViewModel() {
 
     val NOT_CHOOSEN_FOR_NAVIGATING = -1L
@@ -23,9 +23,13 @@ class ThisDayTasksShowingViewModel(val thisDayTaskDao: ThisDayTaskDao): ViewMode
     private val _isNavigatedToStepShowing = MutableLiveData<Long>()
     val isNavigatedToStepShowing: LiveData<Long> get() = _isNavigatedToStepShowing
 
+    private val _isNavigatedToDetailsShowing = MutableLiveData<Long>()
+    val isNavigatedToDetailsShowing: LiveData<Long> get() = _isNavigatedToDetailsShowing
+
     init {
         _isNavigatedToStepShowing.value = NOT_CHOOSEN_FOR_NAVIGATING
         _isNavigatedToThisDayTaskCreating.value = false
+        _isNavigatedToDetailsShowing.value = NOT_CHOOSEN_FOR_NAVIGATING
     }
 
     fun navigateToThisDayTaskCreating() {
@@ -42,6 +46,15 @@ class ThisDayTasksShowingViewModel(val thisDayTaskDao: ThisDayTaskDao): ViewMode
 
     fun afterNavigateToStepShowing() {
         _isNavigatedToStepShowing.value = NOT_CHOOSEN_FOR_NAVIGATING
+    }
+
+    fun navigateToDetailsShowing(thisDayTaskId: Long) {
+        Log.i(TAGG, "Navigating to details showing")
+        _isNavigatedToDetailsShowing.value = thisDayTaskId
+    }
+
+    fun afterNavigateToDetailsShowing() {
+        _isNavigatedToDetailsShowing.value = NOT_CHOOSEN_FOR_NAVIGATING
     }
 
     fun deleteThisDayTask(thisDayTask: ThisDayTask) {
