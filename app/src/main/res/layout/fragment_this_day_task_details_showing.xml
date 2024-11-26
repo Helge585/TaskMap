@@ -29,12 +29,14 @@
             <EditText
                 android:id="@+id/textw_name"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:enabled="false"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@{ task.name }"/>
+
 
             <EditText
                 android:id="@+id/textw_description"
@@ -52,24 +54,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:id="@+id/checkbox_done"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Done"/>
+                    android:layout_weight="1">
 
-                <Button
+                    <CheckBox
+                        android:id="@+id/checkbox_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Done"/>
+
+                    <TextView
+                        android:id="@+id/tw_done_count"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"/>
+
+
+                </LinearLayout>
+
+                <ImageButton
                     android:id="@+id/button_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit"/>
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_settings_24"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/button_delete"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete"/>
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/delete" />
             </LinearLayout>
 
         </LinearLayout>
@@ -146,11 +166,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/step_edit_button"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_settings_24"/>
 
                 <ImageButton
                     android:id="@+id/save_button"
@@ -168,28 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:text='@{ "Created: " + step.creatingDateInString }'/>
         </LinearLayout>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/slider_layout_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/increments_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:visibility="invisible"
-                android:gravity="top"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
 </layout>

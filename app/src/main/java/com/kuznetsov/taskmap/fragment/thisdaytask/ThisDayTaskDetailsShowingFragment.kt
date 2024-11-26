@@ -50,7 +50,6 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                 binding.sliderLayout1.visibility = View.INVISIBLE
                 binding.sliderLayout2.visibility = View.INVISIBLE
                 binding.sliderLayout3.visibility = View.INVISIBLE
-                binding.sliderLayout4.visibility = View.INVISIBLE
                 return@Observer
             }
 
@@ -66,6 +65,8 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                     binding.stepSlider.value = newCurrent.toFloat()
                     binding.percentText.text = MyStringUtils.getPercentText(newCurrent,
                         binding.stepSlider.valueTo.toLong())
+                    val oldResult = binding.twDoneCount.text.toString().toLong()
+                    binding.twDoneCount.text = (oldResult + 1).toString()
                 }
                 binding.saveButton.isVisible = true
             }
@@ -75,6 +76,8 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                     binding.stepSlider.value = newCurrent.toFloat()
                     binding.percentText.text = MyStringUtils.getPercentText(newCurrent,
                         binding.stepSlider.valueTo.toLong())
+                    val oldResult = binding.twDoneCount.text.toString().toLong()
+                    binding.twDoneCount.text = (oldResult - 1).toString()
                 }
                 binding.saveButton.isVisible = true
             }
@@ -87,12 +90,10 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
         })
 
         binding.buttonEdit.setOnClickListener {
-            if (binding.buttonEdit.text.toString() == "Edit") {
-                binding.buttonEdit.text = "Save"
+            if (!binding.textwName.isEnabled) {
                 binding.textwName.isEnabled = true
                 binding.textwDescription.isEnabled = true
             } else {
-                binding.buttonEdit.text = "Edit"
                 binding.textwName.isEnabled = false
                 binding.textwDescription.isEnabled = false
                 viewModel.updateThisDayTask(binding.textwName.text.toString(),
