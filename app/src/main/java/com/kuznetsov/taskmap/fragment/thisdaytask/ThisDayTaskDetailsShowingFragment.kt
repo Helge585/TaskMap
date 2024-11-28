@@ -1,5 +1,6 @@
 package com.kuznetsov.taskmap.fragment.thisdaytask
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kuznetsov.taskmap.R
 import com.kuznetsov.taskmap.dao.GoalDatabase
 import com.kuznetsov.taskmap.databinding.FragmentThisDayTaskDetailsShowingBinding
 import com.kuznetsov.taskmap.utils.MyStringUtils
@@ -40,16 +42,40 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(ThisDayTaskDetailsShowingViewModel::class.java)
 
+
         viewModel.task.observe(viewLifecycleOwner, Observer {
+            if (it == null) {
+                binding.progressButtonsLayout.visibility = View.INVISIBLE
+                binding.thisDaySliderLayout.visibility = View.INVISIBLE
+                binding.allStepSliderLayout.visibility = View.INVISIBLE
+                binding.currentResultLayout.visibility = View.INVISIBLE
+                binding.startResultLayout.visibility = View.INVISIBLE
+                binding.finishResultLayout.visibility = View.INVISIBLE
+                return@Observer
+            }
             binding.task = it
+            if (it.stepId < 0) {
+                binding.progressButtonsLayout.visibility = View.INVISIBLE
+                binding.thisDaySliderLayout.visibility = View.INVISIBLE
+                binding.allStepSliderLayout.visibility = View.INVISIBLE
+                binding.currentResultLayout.visibility = View.INVISIBLE
+                binding.startResultLayout.visibility = View.INVISIBLE
+                binding.finishResultLayout.visibility = View.INVISIBLE
+            }
+
+            binding.thisDayStepSlider.valueFrom = it.startResult.toFloat()
+            binding.thisDayStepSlider.value = it.currentResult.toFloat()
+            binding.thisDayStepSlider.valueTo = it.finishResult.toFloat()
+            binding.thisDayResultPercentText.text =
+                MyStringUtils.getPercentText(it.currentResult, it.finishResult)
         })
 
         viewModel.step.observe(viewLifecycleOwner, Observer {
             if (it == null) {
                 binding.stepSlider.visibility = View.INVISIBLE
-                binding.sliderLayout1.visibility = View.INVISIBLE
-                binding.sliderLayout2.visibility = View.INVISIBLE
-                binding.sliderLayout3.visibility = View.INVISIBLE
+//                binding.sliderLayout1.visibility = View.INVISIBLE
+//                binding.sliderLayout2.visibility = View.INVISIBLE
+//                binding.sliderLayout3.visibility = View.INVISIBLE
                 return@Observer
             }
 
@@ -58,7 +84,8 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
             binding.stepSlider.value = it.currentResult.toFloat()
             binding.stepSlider.valueTo = it.finishResult.toFloat()
             binding.percentText.text = MyStringUtils.getPercentText(it.currentResult, it.finishResult)
-            binding.saveButton.isVisible = false
+
+            //binding.saveButton.isVisible = false
             binding.plusButton.setOnClickListener {
                 val newCurrent = (binding.stepSlider.value + 1).toLong()
                 if (newCurrent <= binding.stepSlider.valueTo.toLong()) {
@@ -68,7 +95,17 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                     val oldResult = binding.twDoneCount.text.toString().toLong()
                     binding.twDoneCount.text = (oldResult + 1).toString()
                 }
-                binding.saveButton.isVisible = true
+
+                val thisDayNewCurrent = (binding.thisDayStepSlider.value + 1).toLong()
+                if (thisDayNewCurrent <= binding.thisDayStepSlider.valueTo.toLong()) {
+                    binding.thisDayStepSlider.value = thisDayNewCurrent.toFloat()
+                    binding.thisDayResultPercentText.text = MyStringUtils.getPercentText(
+                        thisDayNewCurrent,
+                        binding.thisDayStepSlider.valueTo.toLong()
+                    )
+                }
+
+                binding.saveButton.setColorFilter(resources.getColor(R.color.lime_green))
             }
             binding.minusButton.setOnClickListener {
                 val newCurrent = (binding.stepSlider.value - 1).toLong()
@@ -79,13 +116,30 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                     val oldResult = binding.twDoneCount.text.toString().toLong()
                     binding.twDoneCount.text = (oldResult - 1).toString()
                 }
-                binding.saveButton.isVisible = true
+
+                val thisDayNewCurrent = (binding.thisDayStepSlider.value - 1).toLong()
+                if (thisDayNewCurrent >= binding.thisDayStepSlider.valueFrom.toLong()) {
+                    binding.thisDayStepSlider.value = thisDayNewCurrent.toFloat()
+                    binding.thisDayResultPercentText.text = MyStringUtils.getPercentText(
+                        thisDayNewCurrent,
+                        binding.thisDayStepSlider.valueTo.toLong()
+                    )
+                }
+
+                binding.saveButton.setColorFilter(resources.getColor(R.color.lime_green))
             }
             binding.saveButton.setOnClickListener {
                 if (binding.saveButton.isVisible) {
                     viewModel.updateStep(binding.stepSlider.value.toLong())
+                    viewModel.updateThisDayTask(
+                        binding.textwName.text.toString(),
+                        binding.textwDescription.text.toString(),
+                        binding.thisDayStepSlider.valueFrom.toLong(),
+                        binding.thisDayStepSlider.value.toLong(),
+                        binding.thisDayStepSlider.valueTo.toLong()
+                    )
                 }
-                binding.saveButton.isVisible = false
+                binding.saveButton.setColorFilter(resources.getColor(R.color.grey))
             }
         })
 
@@ -93,11 +147,25 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
             if (!binding.textwName.isEnabled) {
                 binding.textwName.isEnabled = true
                 binding.textwDescription.isEnabled = true
+
+                binding.etStartResult.isEnabled = true
+                binding.etCurrentResult.isEnabled = true
+                binding.etFinishResult.isEnabled = true
             } else {
                 binding.textwName.isEnabled = false
                 binding.textwDescription.isEnabled = false
-                viewModel.updateThisDayTask(binding.textwName.text.toString(),
-                    binding.textwDescription.text.toString())
+
+                binding.etStartResult.isEnabled = false
+                binding.etCurrentResult.isEnabled = false
+                binding.etFinishResult.isEnabled = false
+
+                viewModel.updateThisDayTask(
+                    binding.textwName.text.toString(),
+                    binding.textwDescription.text.toString(),
+                    binding.etStartResult.text.toString().toLong(),
+                    binding.etCurrentResult.text.toString().toLong(),
+                    binding.etFinishResult.text.toString().toLong()
+                )
             }
         }
 

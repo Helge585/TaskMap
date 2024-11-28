@@ -26,11 +26,15 @@ class ThisDayTaskDetailsShowingViewModel(val taskId: Long, private val db: GoalD
         }
     }
 
-    fun updateThisDayTask(name: String, description: String) {
+    fun updateThisDayTask(name: String, description: String, startValue: Long,
+                          currentValue: Long, finishValue: Long) {
         //Log.i("ThisDayTasksShowingViewModel", "Updating")
         task.value?.let {
             it.name = name
             it.description = description
+            it.startResult = startValue
+            it.currentResult = currentValue
+            it.finishResult = finishValue
             viewModelScope.launch {
                 db.thisDayTaskDao.update(it)
             }

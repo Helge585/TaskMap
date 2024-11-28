@@ -15,107 +15,206 @@
             type="com.kuznetsov.taskmap.entity.ThisDayTask" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:padding="8dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/textw_name"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:enabled="false"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{ task.name }"/>
-
-
-            <EditText
-                android:id="@+id/textw_description"
-                android:paddingTop="8dp"
-                android:textSize="15sp"
-                android:enabled="false"
-                android:textColor="@color/black"
-                android:inputType="textMultiLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{ task.description }"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:padding="8dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/textw_name"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:enabled="false"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{ task.name }"/>
+
+
+                <EditText
+                    android:id="@+id/textw_description"
+                    android:paddingTop="8dp"
+                    android:textSize="15sp"
+                    android:enabled="false"
+                    android:textColor="@color/black"
+                    android:inputType="textMultiLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{ task.description }"/>
+
+                <LinearLayout
+                    android:id="@+id/start_result_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start result:    "/>
+
+                    <EditText
+                        android:id="@+id/et_start_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:enabled="false"
+                        android:text='@{"" +  task.startResult }'
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/current_result_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current result:    "/>
+
+                    <EditText
+                        android:id="@+id/et_current_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:enabled="false"
+                        android:text='@{ "" + task.currentResult }'
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/finish_result_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tw_finish_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finish result:    "/>
+
+                    <EditText
+                        android:id="@+id/et_finish_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:enabled="false"
+                        android:text='@{"" + task.finishResult}'
+                        android:inputType="number"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content">
 
-                    <CheckBox
-                        android:id="@+id/checkbox_done"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <CheckBox
+                            android:id="@+id/checkbox_done"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Done"/>
+
+                        <TextView
+                            android:id="@+id/tw_done_count"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/button_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Done"/>
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/baseline_settings_24"/>
 
-                    <TextView
-                        android:id="@+id/tw_done_count"
-                        android:gravity="center"
-                        android:layout_weight="1"
+                    <ImageButton
+                        android:id="@+id/button_delete"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"/>
-
-
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/delete" />
                 </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/button_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/baseline_settings_24"/>
-
-                <ImageButton
-                    android:id="@+id/button_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/delete" />
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/progress_buttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/slider_layout_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <Button
+                    android:id="@+id/minus_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="-1"/>
+
+                <Button
+                    android:id="@+id/plus_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="+1"/>
+
+                <ImageButton
+                    android:id="@+id/save_button"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/save"
+                    android:text="Save"/>
+
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/this_day_slider_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
 
                 <TextView
-                    android:id="@+id/step_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="16sp"
                     android:padding="8dp"
-                    android:text="@{ step.name }"/>
+                    android:text="This day result"/>
 
                 <com.google.android.material.slider.Slider
-                    android:id="@+id/step_slider"
+                    android:id="@+id/this_day_step_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stepSize="1"
@@ -125,65 +224,51 @@
                     app:thumbColor="@color/dim_gray"
                     app:trackHeight="15dp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/this_day_result_percent_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text=""/>
+            </LinearLayout>
 
-                    <Button
-                        android:id="@+id/minus_button"
-                        android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/all_step_slider_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/step_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:padding="8dp"
+                        android:text="All result"/>
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/step_slider"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:text="-1"/>
+                        android:stepSize="1"
+                        android:enabled="false"
+                        app:trackColorActive="@color/lime_green"
+                        app:trackColorInactive="@color/silver"
+                        app:thumbColor="@color/dim_gray"
+                        app:trackHeight="15dp" />
 
                     <TextView
                         android:id="@+id/percent_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="15sp"
                         android:text=""/>
-
-                    <Button
-                        android:id="@+id/plus_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:text="+1"/>
-                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/slider_layout_2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <ImageButton
-                    android:id="@+id/save_button"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/save"
-                    android:text="Save"/>
-            </LinearLayout>
-
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/slider_layout_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 </layout>

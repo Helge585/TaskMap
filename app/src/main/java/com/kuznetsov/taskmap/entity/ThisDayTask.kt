@@ -24,6 +24,15 @@ data class ThisDayTask(
     var status : Long = 0,
 
     @ColumnInfo(name = "creating_date", defaultValue = "0")
-    var creatingDate : Long = 0
+    var creatingDate : Long = 0,
+
+    @ColumnInfo(name = "start_result", defaultValue = "0")
+    var startResult: Long = 0,
+
+    @ColumnInfo(name = "current_result", defaultValue = "0")
+    var currentResult: Long = 0,
+
+    @ColumnInfo(name = "finish_result", defaultValue = "0")
+    var finishResult: Long = 0
 ) {
 }
