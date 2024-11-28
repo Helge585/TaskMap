@@ -20,6 +20,9 @@ data class ThisDayTask(
     @ColumnInfo(name = "step_id")
     var stepId : Long = 0,
 
+    @ColumnInfo(name = "group_id", defaultValue = "-1")
+    var groupId : Long = 0,
+
     @ColumnInfo(name = "status", defaultValue = "0")
     var status : Long = 0,
 

@@ -15,7 +15,7 @@ import com.kuznetsov.taskmap.entity.ThisDayTask_UnusedClass_MustBeDeleted
 
 @Database(entities = [MainGoal::class, SubGoal::class, Step::class, Increment::class,
     ThisDayTask::class, ThisDayTask_UnusedClass_MustBeDeleted::class],
-    version = 6, exportSchema = false)
+    version = 7, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {
 
     abstract val mainGoalDao: MainGoalDao
@@ -80,6 +80,15 @@ abstract class GoalDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_6_7 = object: Migration(6, 7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE this_day_task_table_2 ADD COLUMN group_id INTEGER DEFAULT -1 NOT NULL")
+                database.execSQL("CREATE TABLE IF NOT EXISTS this_day_group_table (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        "this_day_group_name TEXT DEFAULT '-' NOT NULL)")
+            }
+        }
+
         fun getInstance(context: Context) : GoalDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -89,7 +98,7 @@ abstract class GoalDatabase : RoomDatabase() {
                         GoalDatabase::class.java,
                         "goal_database"
                     ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,
-                        MIGRATION_4_5, MIGRATION_5_6).build()
+                        MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build()
                     INSTANCE = instance
                 }
                 return instance
