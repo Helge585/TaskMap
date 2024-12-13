@@ -37,5 +37,8 @@ data class ThisDayTask(
 
     @ColumnInfo(name = "finish_result", defaultValue = "0")
     var finishResult: Long = 0
-) {
+): ThisDayAddable {
+    override fun isGroup(): Boolean {
+        return false
+    }
 }

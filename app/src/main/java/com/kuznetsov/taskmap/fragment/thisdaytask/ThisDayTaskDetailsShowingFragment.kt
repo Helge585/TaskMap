@@ -2,10 +2,12 @@ package com.kuznetsov.taskmap.fragment.thisdaytask
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,6 +46,7 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
 
 
         viewModel.task.observe(viewLifecycleOwner, Observer {
+            viewModel.updateStep()
             if (it == null) {
                 binding.progressButtonsLayout.visibility = View.INVISIBLE
                 binding.thisDaySliderLayout.visibility = View.INVISIBLE
@@ -62,15 +65,18 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                 binding.startResultLayout.visibility = View.INVISIBLE
                 binding.finishResultLayout.visibility = View.INVISIBLE
             }
+            if (it.startResult < it.finishResult) {
+                binding.thisDayStepSlider.valueFrom = it.startResult.toFloat()
+                binding.thisDayStepSlider.value = it.currentResult.toFloat()
+                binding.thisDayStepSlider.valueTo = it.finishResult.toFloat()
+            }
 
-            binding.thisDayStepSlider.valueFrom = it.startResult.toFloat()
-            binding.thisDayStepSlider.value = it.currentResult.toFloat()
-            binding.thisDayStepSlider.valueTo = it.finishResult.toFloat()
             binding.thisDayResultPercentText.text =
                 MyStringUtils.getPercentText(it.currentResult, it.finishResult)
         })
 
-        viewModel.step.observe(viewLifecycleOwner, Observer {
+        viewModel.step?.observe(viewLifecycleOwner, Observer {
+            Log.i("ThisDayTaskDetailsShowingFragment", "step updating - ${it}")
             if (it == null) {
                 binding.stepSlider.visibility = View.INVISIBLE
 //                binding.sliderLayout1.visibility = View.INVISIBLE
@@ -136,7 +142,8 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                         binding.textwDescription.text.toString(),
                         binding.thisDayStepSlider.valueFrom.toLong(),
                         binding.thisDayStepSlider.value.toLong(),
-                        binding.thisDayStepSlider.valueTo.toLong()
+                        binding.thisDayStepSlider.valueTo.toLong(),
+                        binding.groupsSpinner.selectedItem.toString()
                     )
                 }
                 binding.saveButton.setColorFilter(resources.getColor(R.color.grey))
@@ -151,6 +158,9 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                 binding.etStartResult.isEnabled = true
                 binding.etCurrentResult.isEnabled = true
                 binding.etFinishResult.isEnabled = true
+
+                binding.groupsSpinner.isEnabled = true
+
             } else {
                 binding.textwName.isEnabled = false
                 binding.textwDescription.isEnabled = false
@@ -159,12 +169,15 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
                 binding.etCurrentResult.isEnabled = false
                 binding.etFinishResult.isEnabled = false
 
+                binding.groupsSpinner.isEnabled = false
+
                 viewModel.updateThisDayTask(
                     binding.textwName.text.toString(),
                     binding.textwDescription.text.toString(),
                     binding.etStartResult.text.toString().toLong(),
                     binding.etCurrentResult.text.toString().toLong(),
-                    binding.etFinishResult.text.toString().toLong()
+                    binding.etFinishResult.text.toString().toLong(),
+                    binding.groupsSpinner.selectedItem.toString()
                 )
             }
         }
@@ -179,11 +192,36 @@ class ThisDayTaskDetailsShowingFragment : Fragment() {
         }
 
         binding.buttonDelete.setOnClickListener {
+            viewModel.step?.removeObservers(viewLifecycleOwner)
             viewModel.deleteThisDayTask()
             val action = ThisDayTaskDetailsShowingFragmentDirections
                 .actionThisDayTaskDetailsShowingFragmentToThisDayFragment()
-            findNavController().navigate(action)
+            //findNavController().navigate(action)
+            findNavController().popBackStack()
         }
+
+        binding.groupsSpinner.isEnabled = false
+
+        viewModel.groups.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val groupsName = mutableListOf<String>()
+                var selectIndex = 0
+                groupsName.add("None")
+                it.forEachIndexed { i, gn ->
+                    groupsName.add(gn.name)
+                    if (gn.id == viewModel.task.value?.groupId) {
+                        selectIndex = i + 1
+                    }
+                }
+                val spinnerAdapter = ArrayAdapter<String>(requireContext(),
+                    com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
+                    groupsName)
+                spinnerAdapter.setDropDownViewResource(
+                    com.google.android.material.R.layout.support_simple_spinner_dropdown_item)
+                binding.groupsSpinner.adapter = spinnerAdapter
+                binding.groupsSpinner.setSelection(selectIndex)
+            }
+        })
 
         return binding.root
     }

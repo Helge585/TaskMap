@@ -40,7 +40,22 @@
                 android:id="@+id/this_day_task_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"/>
+                android:text="Create task"/>
+
+            <EditText
+                android:id="@+id/this_day_group_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@={ viewModel.groupName }"
+                android:hint="name"/>
+
+
+            <Button
+                android:id="@+id/this_day_group_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create group"/>
         </LinearLayout>
 
     </FrameLayout>

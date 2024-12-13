@@ -40,7 +40,12 @@ class ThisDayTaskCreatingFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-
+        binding.thisDayGroupSaveButton.setOnClickListener {
+            viewModel.saveThisDayGroup()
+            val action = ThisDayTaskCreatingFragmentDirections
+                .actionThisDayTaskCreatingFragmentToThisDayFragment()
+            findNavController().navigate(action)
+        }
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

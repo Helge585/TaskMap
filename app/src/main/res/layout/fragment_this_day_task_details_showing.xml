@@ -54,68 +54,104 @@
                     android:text="@{ task.description }"/>
 
                 <LinearLayout
-                    android:id="@+id/start_result_layout"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Start result:    "/>
-
-                    <EditText
-                        android:id="@+id/et_start_result"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:enabled="false"
-                        android:text='@{"" +  task.startResult }'
-                        android:inputType="number"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/current_result_layout"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Current result:    "/>
-
-                    <EditText
-                        android:id="@+id/et_current_result"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:enabled="false"
-                        android:text='@{ "" + task.currentResult }'
-                        android:inputType="number"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/finish_result_layout"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tw_finish_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Finish result:    "/>
-
-                    <EditText
-                        android:id="@+id/et_finish_result"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/start_result_layout"
+                        android:orientation="horizontal"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="From:    "/>
+
+                        <EditText
+                            android:id="@+id/et_start_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:enabled="false"
+                            android:text='@{"" +  task.startResult }'
+                            android:inputType="number"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/current_result_layout"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Now:    "/>
+
+                        <EditText
+                            android:id="@+id/et_current_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:enabled="false"
+                            android:text='@{ "" + task.currentResult }'
+                            android:inputType="number"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/finish_result_layout"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tw_finish_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="To:    "/>
+
+                        <EditText
+                            android:id="@+id/et_finish_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:enabled="false"
+                            android:text='@{"" + task.finishResult}'
+                            android:inputType="number"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Group: "/>
+
+                    <Spinner
+                        android:id="@+id/groups_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <EditText
+                        android:id="@+id/group_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:enabled="false"
-                        android:text='@{"" + task.finishResult}'
-                        android:inputType="number"/>
+                        android:textColor="@color/black"
+                        android:text='@{ "" + task.groupId }'/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -219,6 +255,9 @@
                     android:layout_height="wrap_content"
                     android:stepSize="1"
                     android:enabled="false"
+                    android:valueFrom="0"
+                    android:value="0"
+                    android:valueTo="1"
                     app:trackColorActive="@color/lime_green"
                     app:trackColorInactive="@color/silver"
                     app:thumbColor="@color/dim_gray"
@@ -255,6 +294,9 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:enabled="false"
+                        android:valueFrom="0"
+                        android:value="0"
+                        android:valueTo="1"
                         app:trackColorActive="@color/lime_green"
                         app:trackColorInactive="@color/silver"
                         app:thumbColor="@color/dim_gray"

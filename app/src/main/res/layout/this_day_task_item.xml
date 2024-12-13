@@ -17,6 +17,7 @@
         app:cardCornerRadius="4dp">
 
         <LinearLayout
+            android:id="@+id/this_day_task_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

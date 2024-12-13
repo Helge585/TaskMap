@@ -11,6 +11,9 @@ data class ThisDayGroup(
 
     @ColumnInfo(name = "this_day_group_name", defaultValue = "-")
     var name: String = ""
-) {
+): ThisDayAddable  {
+    override fun isGroup(): Boolean {
+        return true
+    }
 
 }

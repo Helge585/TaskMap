@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kuznetsov.taskmap.dao.ThisDayTaskDao
+import com.kuznetsov.taskmap.entity.ThisDayGroup
 import com.kuznetsov.taskmap.entity.ThisDayTask
 import com.kuznetsov.taskmap.utils.MyDateUtils
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ class ThisDayTaskCreatingViewModel(val dao: ThisDayTaskDao): ViewModel() {
 
     var name: String = ""
     var description: String = ""
+    var groupName: String = ""
 
 
     fun saveThisDayTask() {
@@ -31,8 +33,20 @@ class ThisDayTaskCreatingViewModel(val dao: ThisDayTaskDao): ViewModel() {
         )
         Log.i(TAG, "before inserting task")
         viewModelScope.launch {
-            dao.insert(thisDayTask)
+            dao.insertTask(thisDayTask)
         }
     }
 
+    fun saveThisDayGroup() {
+        if (groupName.isEmpty()) {
+            return
+        }
+        val thisDayGroup = ThisDayGroup(
+            id = 0,
+            name = groupName
+        )
+        viewModelScope.launch {
+            dao.insertGroup(thisDayGroup)
+        }
+    }
 }

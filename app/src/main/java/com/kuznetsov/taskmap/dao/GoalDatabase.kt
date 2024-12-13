@@ -10,12 +10,13 @@ import com.kuznetsov.taskmap.entity.Increment
 import com.kuznetsov.taskmap.entity.MainGoal
 import com.kuznetsov.taskmap.entity.Step
 import com.kuznetsov.taskmap.entity.SubGoal
+import com.kuznetsov.taskmap.entity.ThisDayGroup
 import com.kuznetsov.taskmap.entity.ThisDayTask
 import com.kuznetsov.taskmap.entity.ThisDayTask_UnusedClass_MustBeDeleted
 
 @Database(entities = [MainGoal::class, SubGoal::class, Step::class, Increment::class,
-    ThisDayTask::class, ThisDayTask_UnusedClass_MustBeDeleted::class],
-    version = 7, exportSchema = false)
+    ThisDayTask::class, ThisDayTask_UnusedClass_MustBeDeleted::class, ThisDayGroup::class],
+    version = 8, exportSchema = false)
 abstract class GoalDatabase : RoomDatabase() {
 
     abstract val mainGoalDao: MainGoalDao
@@ -89,6 +90,11 @@ abstract class GoalDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_7_8 = object: Migration(7, 8) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+            }
+        }
+
         fun getInstance(context: Context) : GoalDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -98,7 +104,7 @@ abstract class GoalDatabase : RoomDatabase() {
                         GoalDatabase::class.java,
                         "goal_database"
                     ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,
-                        MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build()
+                        MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8).build()
                     INSTANCE = instance
                 }
                 return instance

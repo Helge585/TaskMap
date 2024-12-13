@@ -1,6 +1,5 @@
 package com.kuznetsov.taskmap.viewmodel.step
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -99,7 +98,7 @@ class StepsShowingViewModel(private val stepDao: StepDao,
             creatingDate = MyDateUtils.getCurrentDateInMillis()
         )
         viewModelScope.launch {
-            thisDayTaskDao.insert(thisDayTask)
+            thisDayTaskDao.insertTask(thisDayTask)
         }
     }
 }
